@@ -1,0 +1,112 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Registration', ar: 'التسجيل' }"
+  [title]="{ en: 'Registration enquiry', ar: 'طلب تسجيل' }"
+  [subtitle]="{ en: 'Tell us about your child and we will be in touch.', ar: 'أخبرنا عن طفلك وسنتواصل معك.' }"
+/>
+
+<section class="section">
+  <div class="shell reg">
+    <div class="reg__form card">
+      @if (done()) {
+        <div class="reg__success" role="status">
+          <span class="reg__success-ico"><app-icon name="check" [size]="34" /></span>
+          <h2>{{ i18n.pick({ en: 'Enquiry received', ar: 'تم استلام الطلب' }) }}</h2>
+          <p>{{ i18n.t('form.success') }}</p>
+          <div class="reg__success-cta">
+            <a class="btn btn--sm" routerLink="/">{{ i18n.pick({ en: 'Back to home', ar: 'العودة للرئيسية' }) }}</a>
+            <button type="button" class="btn btn--ghost btn--sm" (click)="again()">{{ i18n.pick({ en: 'Submit another', ar: 'إرسال طلب آخر' }) }}</button>
+          </div>
+        </div>
+      } @else {
+        <p class="reg__intro">{{ i18n.t('admissions.intro') }}</p>
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="studentName">{{ i18n.t('form.studentName') }} *</label>
+              <input id="studentName" type="text" formControlName="studentName" [class.err]="invalid('studentName')" autocomplete="name" />
+              @if (invalid('studentName')) { <small class="msg">{{ i18n.t('form.required') }}</small> }
+            </div>
+
+            <div class="field">
+              <label for="dob">{{ i18n.t('form.dob') }}</label>
+              <input id="dob" type="date" formControlName="dob" />
+            </div>
+
+            <div class="field">
+              <label for="grade">{{ i18n.t('form.grade') }} *</label>
+              <select id="grade" formControlName="gradeApplying" [class.err]="invalid('gradeApplying')">
+                <option value="" disabled>{{ i18n.t('form.select') }}</option>
+                @for (g of grades(); track g.code) {
+                  <option [value]="g.code">{{ i18n.pick(g.name) }}</option>
+                }
+              </select>
+              @if (invalid('gradeApplying')) { <small class="msg">{{ i18n.t('form.required') }}</small> }
+            </div>
+
+            <div class="field">
+              <label for="gender">{{ i18n.t('form.gender') }}</label>
+              <select id="gender" formControlName="gender">
+                <option value="" disabled>{{ i18n.t('form.select') }}</option>
+                <option value="male">{{ i18n.t('form.male') }}</option>
+                <option value="female">{{ i18n.t('form.female') }}</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="parentName">{{ i18n.t('form.parentName') }} *</label>
+              <input id="parentName" type="text" formControlName="parentName" [class.err]="invalid('parentName')" />
+              @if (invalid('parentName')) { <small class="msg">{{ i18n.t('form.required') }}</small> }
+            </div>
+
+            <div class="field">
+              <label for="nationality">{{ i18n.t('form.nationality') }}</label>
+              <input id="nationality" type="text" formControlName="nationality" />
+            </div>
+
+            <div class="field">
+              <label for="phone">{{ i18n.t('form.phone') }} *</label>
+              <input id="phone" type="tel" dir="ltr" formControlName="phone" [class.err]="invalid('phone')" autocomplete="tel" />
+              @if (invalid('phone')) { <small class="msg">{{ i18n.t('form.required') }}</small> }
+            </div>
+
+            <div class="field">
+              <label for="email">{{ i18n.t('form.email') }} *</label>
+              <input id="email" type="email" dir="ltr" formControlName="email" [class.err]="invalid('email')" autocomplete="email" />
+              @if (invalid('email')) { <small class="msg">{{ form.controls.email.errors?.['required'] ? i18n.t('form.required') : i18n.t('form.invalidEmail') }}</small> }
+            </div>
+
+            <div class="field field--full">
+              <label for="previousSchool">{{ i18n.t('form.previousSchool') }}</label>
+              <input id="previousSchool" type="text" formControlName="previousSchool" />
+            </div>
+
+            <div class="field field--full">
+              <label for="message">{{ i18n.t('form.message') }}</label>
+              <textarea id="message" rows="3" formControlName="message"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--gold reg__submit" [disabled]="submitting()">
+            @if (submitting()) { {{ i18n.t('form.sending') }} } @else { {{ i18n.t('cta.submit') }} <app-icon name="arrow" [size]="18" /> }
+          </button>
+        </form>
+      }
+    </div>
+
+    <aside class="reg__aside">
+      <div class="card reg__help">
+        <h3>{{ i18n.pick({ en: 'Need help?', ar: 'تحتاج مساعدة؟' }) }}</h3>
+        <p>{{ i18n.pick({ en: 'Our admissions team is happy to guide you through every step.', ar: 'يسعد فريق القبول بإرشادك في كل خطوة.' }) }}</p>
+        <ul>
+          <li><app-icon name="check" [size]="16" /> {{ i18n.pick({ en: 'KG1 to Grade 9', ar: 'من الروضة إلى الصف التاسع' }) }}</li>
+          <li><app-icon name="check" [size]="16" /> {{ i18n.pick({ en: 'Cambridge Pathway', ar: 'مسار كامبريدج' }) }}</li>
+          <li><app-icon name="check" [size]="16" /> {{ i18n.pick({ en: 'Bilingual learning', ar: 'تعليم ثنائي اللغة' }) }}</li>
+        </ul>
+        <div class="reg__help-links">
+          <a routerLink="/admissions/fees">{{ i18n.t('admissions.fees') }}</a>
+          <a routerLink="/admissions/requirements">{{ i18n.t('admissions.requirements') }}</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>

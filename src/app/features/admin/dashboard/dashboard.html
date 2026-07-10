@@ -1,0 +1,170 @@
+<section class="dash">
+  <header class="dash__top">
+    <div class="shell--wide dash__top-inner">
+      <div>
+        <h1>{{ i18n.t('admin.title') }}</h1>
+        <span class="dash__who">{{ auth.user()?.email }}</span>
+      </div>
+      <div class="dash__top-actions">
+        <span class="dash__status" [class.on]="firebaseOn">
+          <app-icon name="shield" [size]="15" />
+          {{ firebaseOn ? i18n.pick({ en: 'Firebase connected', ar: 'Firebase متصل' }) : i18n.pick({ en: 'Local preview', ar: 'معاينة محلية' }) }}
+        </span>
+        <button type="button" class="btn btn--ghost btn--sm" (click)="signOut()">{{ i18n.t('admin.signOut') }}</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell--wide">
+    <nav class="tabs" aria-label="Dashboard sections">
+      <button type="button" class="tab" [class.is-active]="tab() === 'content'" (click)="setTab('content')">
+        <app-icon name="book" [size]="18" /> {{ i18n.pick({ en: 'Website content', ar: 'محتوى الموقع' }) }}
+      </button>
+      <button type="button" class="tab" [class.is-active]="tab() === 'enquiries'" (click)="setTab('enquiries')">
+        <app-icon name="users" [size]="18" /> {{ i18n.t('admin.enquiries') }}
+        @if (enquiries().length) { <span class="badge">{{ enquiries().length }}</span> }
+      </button>
+    </nav>
+
+    @if (tab() === 'content') {
+      <div class="editor">
+        <!-- School info -->
+        <fieldset class="block">
+          <legend>{{ i18n.pick({ en: 'School details', ar: 'بيانات المدرسة' }) }}</legend>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Phone', ar: 'الهاتف' }) }}<input dir="ltr" [(ngModel)]="draft.school.phone" /></label>
+            <label>{{ i18n.pick({ en: 'Email', ar: 'البريد' }) }}<input dir="ltr" [(ngModel)]="draft.school.email" /></label>
+            <label>WhatsApp<input dir="ltr" [(ngModel)]="draft.school.whatsapp" /></label>
+          </div>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Address (EN)', ar: 'العنوان (إنجليزي)' }) }}<input [(ngModel)]="draft.school.address.en" /></label>
+            <label>{{ i18n.pick({ en: 'Address (AR)', ar: 'العنوان (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.school.address.ar" /></label>
+          </div>
+        </fieldset>
+
+        <!-- Hero -->
+        <fieldset class="block">
+          <legend>{{ i18n.pick({ en: 'Home hero', ar: 'واجهة الرئيسية' }) }}</legend>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Title (EN)', ar: 'العنوان (إنجليزي)' }) }}<input [(ngModel)]="draft.hero.title.en" /></label>
+            <label>{{ i18n.pick({ en: 'Title (AR)', ar: 'العنوان (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.hero.title.ar" /></label>
+          </div>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Highlight (EN)', ar: 'الكلمة المميّزة (إنجليزي)' }) }}<input [(ngModel)]="draft.hero.highlight.en" /></label>
+            <label>{{ i18n.pick({ en: 'Highlight (AR)', ar: 'الكلمة المميّزة (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.hero.highlight.ar" /></label>
+          </div>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Subtitle (EN)', ar: 'الوصف (إنجليزي)' }) }}<textarea rows="2" [(ngModel)]="draft.hero.subtitle.en"></textarea></label>
+            <label>{{ i18n.pick({ en: 'Subtitle (AR)', ar: 'الوصف (عربي)' }) }}<textarea dir="rtl" rows="2" [(ngModel)]="draft.hero.subtitle.ar"></textarea></label>
+          </div>
+          <div class="row row--img">
+            <label class="uploader">
+              {{ i18n.pick({ en: 'Hero image', ar: 'صورة الواجهة' }) }}
+              <input type="file" accept="image/*" (change)="onImage($event, setHeroImage)" />
+            </label>
+            <img class="preview" [src]="draft.hero.image" alt="" />
+          </div>
+        </fieldset>
+
+        <!-- Stats -->
+        <fieldset class="block">
+          <legend>{{ i18n.pick({ en: 'Highlight numbers', ar: 'الأرقام البارزة' }) }}</legend>
+          @for (s of draft.stats; track $index) {
+            <div class="row row--stat">
+              <label>{{ i18n.pick({ en: 'Value', ar: 'القيمة' }) }}<input type="number" [(ngModel)]="s.value" /></label>
+              <label>{{ i18n.pick({ en: 'Suffix', ar: 'اللاحقة' }) }}<input [(ngModel)]="s.suffix" /></label>
+              <label>{{ i18n.pick({ en: 'Label (EN)', ar: 'التسمية (إنجليزي)' }) }}<input [(ngModel)]="s.label.en" /></label>
+              <label>{{ i18n.pick({ en: 'Label (AR)', ar: 'التسمية (عربي)' }) }}<input dir="rtl" [(ngModel)]="s.label.ar" /></label>
+            </div>
+          }
+        </fieldset>
+
+        <!-- Principal -->
+        <fieldset class="block">
+          <legend>{{ i18n.pick({ en: 'Principal message', ar: 'كلمة المدير' }) }}</legend>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Name (EN)', ar: 'الاسم (إنجليزي)' }) }}<input [(ngModel)]="draft.principalMessage.name.en" /></label>
+            <label>{{ i18n.pick({ en: 'Name (AR)', ar: 'الاسم (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.principalMessage.name.ar" /></label>
+          </div>
+          <div class="row">
+            <label>{{ i18n.pick({ en: 'Message (EN)', ar: 'الكلمة (إنجليزي)' }) }}<textarea rows="3" [(ngModel)]="draft.principalMessage.body.en"></textarea></label>
+            <label>{{ i18n.pick({ en: 'Message (AR)', ar: 'الكلمة (عربي)' }) }}<textarea dir="rtl" rows="3" [(ngModel)]="draft.principalMessage.body.ar"></textarea></label>
+          </div>
+          <div class="row row--img">
+            <label class="uploader">
+              {{ i18n.pick({ en: 'Principal photo', ar: 'صورة المدير' }) }}
+              <input type="file" accept="image/*" (change)="onImage($event, setPrincipalImage)" />
+            </label>
+            <img class="preview preview--portrait" [src]="draft.principalMessage.photo" alt="" />
+          </div>
+        </fieldset>
+
+        <!-- Downloads / Resources -->
+        <fieldset class="block">
+          <legend>{{ i18n.pick({ en: 'Downloads (brochure, calendar…)', ar: 'التحميلات (المطوية، التقويم…)' }) }}</legend>
+          @for (r of draft.resources; track $index) {
+            <div class="resource">
+              <div class="row">
+                <label>{{ i18n.pick({ en: 'Title (EN)', ar: 'العنوان (إنجليزي)' }) }}<input [(ngModel)]="r.title.en" /></label>
+                <label>{{ i18n.pick({ en: 'Title (AR)', ar: 'العنوان (عربي)' }) }}<input dir="rtl" [(ngModel)]="r.title.ar" /></label>
+              </div>
+              <div class="row row--img">
+                <label class="uploader">
+                  {{ i18n.pick({ en: 'File (PDF)', ar: 'الملف (PDF)' }) }}
+                  <input type="file" accept="application/pdf,image/*" (change)="onResourceFile($event, r)" />
+                </label>
+                @if (r.fileUrl) {
+                  <a class="filelink" [href]="r.fileUrl" target="_blank" rel="noopener"><app-icon name="check" [size]="15" /> {{ i18n.pick({ en: 'File attached', ar: 'الملف مرفق' }) }}</a>
+                } @else {
+                  <span class="filelink filelink--none">{{ i18n.pick({ en: 'No file yet', ar: 'لا يوجد ملف' }) }}</span>
+                }
+              </div>
+            </div>
+          }
+        </fieldset>
+
+        <div class="savebar">
+          <button type="button" class="btn btn--gold" (click)="save()" [disabled]="saving()">
+            @if (saving()) { {{ i18n.t('form.sending') }} } @else { <app-icon name="check" [size]="18" /> {{ i18n.pick({ en: 'Save & publish', ar: 'حفظ ونشر' }) }} }
+          </button>
+          <button type="button" class="btn btn--ghost btn--sm" (click)="resetDraft()">{{ i18n.pick({ en: 'Reset to default', ar: 'استعادة الافتراضي' }) }}</button>
+          @if (savedMsg()) { <span class="savebar__msg">{{ savedMsg() }}</span> }
+        </div>
+      </div>
+    } @else {
+      <div class="enquiries">
+        <div class="enquiries__head">
+          <p>{{ enquiries().length }} {{ i18n.pick({ en: 'total enquiries', ar: 'طلب' }) }}</p>
+          @if (enquiries().length) {
+            <button type="button" class="btn btn--ghost btn--sm" (click)="exportEnquiries()"><app-icon name="download" [size]="16" /> {{ i18n.pick({ en: 'Export CSV', ar: 'تصدير CSV' }) }}</button>
+          }
+        </div>
+        @if (enquiries().length) {
+          <div class="cards">
+            @for (e of enquiries(); track $index) {
+              <article class="enquiry card">
+                <div class="enquiry__top">
+                  <strong>{{ e.studentName }}</strong>
+                  <span class="chip">{{ e.gradeApplying }}</span>
+                </div>
+                <ul>
+                  <li><app-icon name="users" [size]="15" /> {{ e.parentName }}</li>
+                  <li><app-icon name="phone" [size]="15" /> <a dir="ltr" [href]="'tel:' + e.phone">{{ e.phone }}</a></li>
+                  <li><app-icon name="mail" [size]="15" /> <a dir="ltr" [href]="'mailto:' + e.email">{{ e.email }}</a></li>
+                  @if (e.message) { <li class="enquiry__msg">“{{ e.message }}”</li> }
+                </ul>
+                <time>{{ e.submittedAt }}</time>
+              </article>
+            }
+          </div>
+        } @else {
+          <div class="empty card">
+            <app-icon name="mail" [size]="30" />
+            <p>{{ i18n.t('admin.noEnquiries') }}</p>
+            <small>{{ firebaseOn ? '' : i18n.pick({ en: 'Connect Firebase to collect enquiries from all visitors.', ar: 'اربط Firebase لتجميع الطلبات من جميع الزوار.' }) }}</small>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

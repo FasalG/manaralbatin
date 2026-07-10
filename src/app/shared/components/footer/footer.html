@@ -1,0 +1,62 @@
+<div class="cta-band">
+  <div class="shell cta-band__inner">
+    <div>
+      <h2>{{ i18n.pick({ en: 'Ready to join our school family?', ar: 'هل أنت مستعد للانضمام إلى أسرتنا؟' }) }}</h2>
+      <p>{{ i18n.pick({ en: 'Admissions for 2026–2027 are open. Start your enquiry in minutes.', ar: 'القبول للعام 2026–2027 مفتوح. ابدأ طلبك خلال دقائق.' }) }}</p>
+    </div>
+    <a class="btn btn--gold" routerLink="/admissions/register">{{ i18n.t('cta.startRegistration') }}</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="shell footer__grid">
+    <div class="footer__brand">
+      <a class="footer__logo" routerLink="/">
+        <app-logo [size]="52" />
+        <span>
+          <strong>{{ i18n.pick(school().name) }}</strong>
+          <small>{{ i18n.pick({ en: 'Est.', ar: 'تأسست' }) }} {{ school().established }} · {{ i18n.pick(school().curriculum) }}</small>
+        </span>
+      </a>
+      <p class="footer__tag">{{ i18n.t('footer.tagline') }}</p>
+      <div class="social">
+        <a [href]="school().social.facebook" aria-label="Facebook"><app-icon name="globe" [size]="18" /></a>
+        <a [href]="school().social.instagram" aria-label="Instagram"><app-icon name="star" [size]="18" /></a>
+        <a [href]="school().social.youtube" aria-label="YouTube"><app-icon name="play" [size]="18" /></a>
+      </div>
+    </div>
+
+    <nav class="footer__col" aria-label="Footer">
+      <h3>{{ i18n.t('footer.quickLinks') }}</h3>
+      <ul>
+        @for (l of links; track l.path) {
+          <li><a [routerLink]="l.path">{{ i18n.t(l.key) }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <div class="footer__col">
+      <h3>{{ i18n.t('footer.contact') }}</h3>
+      <ul class="contact">
+        <li><app-icon name="phone" [size]="18" /><a [href]="'tel:' + school().phone">{{ school().phone }}</a></li>
+        <li><app-icon name="mail" [size]="18" /><a [href]="'mailto:' + school().email">{{ school().email }}</a></li>
+        <li><app-icon name="pin" [size]="18" /><span>{{ i18n.pick(school().address) }}</span></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3>{{ i18n.t('footer.visit') }}</h3>
+      <p class="hours">{{ i18n.pick({ en: 'Sun–Thu · 7:00 AM – 2:30 PM', ar: 'الأحد–الخميس · 7:00 ص – 2:30 م' }) }}</p>
+      <a class="btn btn--ghost btn--sm" [href]="school().mapUrl" target="_blank" rel="noopener">
+        <app-icon name="pin" [size]="16" /> {{ i18n.t('cta.getDirections') }}
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__bar">
+    <div class="shell footer__bar-inner">
+      <p>© {{ year }} {{ i18n.pick(school().name) }}. {{ i18n.t('footer.rights') }}</p>
+      <a class="staff" routerLink="/admin/login">{{ i18n.t('footer.admin') }}</a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,32 @@
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--mist), var(--sand));
+  border-bottom: 1px solid var(--line);
+}
+.page-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(2.6rem, 6vw, 4.5rem);
+}
+.crumbs {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+.crumbs a { color: var(--green-deep); }
+.crumbs a:hover { text-decoration: underline; }
+.page-hero h1 {
+  font-size: clamp(2rem, 1.4rem + 2.8vw, 3.4rem);
+  max-width: 18ch;
+}
+.page-hero p {
+  margin: 0.6rem 0 0;
+  max-width: 58ch;
+  font-size: clamp(1.02rem, 0.98rem + 0.3vw, 1.18rem);
+  color: var(--ink-soft);
+}

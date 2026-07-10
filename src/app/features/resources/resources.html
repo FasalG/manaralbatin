@@ -1,0 +1,32 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Downloads', ar: 'التحميلات' }"
+  [title]="{ en: 'Brochure, calendar & documents', ar: 'المطوية والتقويم والمستندات' }"
+  [subtitle]="{ en: 'Everything you need to know about our school, ready to download.', ar: 'كل ما تحتاج معرفته عن مدرستنا، جاهز للتحميل.' }"
+/>
+
+<section class="section">
+  <div class="shell res">
+    @for (r of resources(); track $index) {
+      <article class="res__item card" appReveal [revealDelay]="$index * 80">
+        <span class="res__ico"><app-icon [name]="r.icon" [size]="26" /></span>
+        <div class="res__body">
+          <h2>{{ i18n.pick(r.title) }}</h2>
+          <p>{{ i18n.pick(r.description) }}</p>
+        </div>
+        @if (r.fileUrl) {
+          <a class="btn btn--sm res__btn" [href]="r.fileUrl" target="_blank" rel="noopener" [download]="true">
+            <app-icon name="download" [size]="16" /> {{ i18n.t('cta.download') }}
+            <span class="res__label">{{ r.fileLabel }}</span>
+          </a>
+        } @else {
+          <span class="res__soon">{{ i18n.pick({ en: 'Coming soon', ar: 'قريباً' }) }}</span>
+        }
+      </article>
+    }
+  </div>
+
+  <div class="shell res__note">
+    <p>{{ i18n.pick({ en: 'Looking for something else? Contact our admissions office and we will send it to you.', ar: 'تبحث عن شيء آخر؟ تواصل مع مكتب القبول وسنرسله إليك.' }) }}</p>
+    <a class="btn btn--ghost btn--sm" routerLink="/contact">{{ i18n.t('nav.contact') }}</a>
+  </div>
+</section>

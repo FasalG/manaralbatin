@@ -1,0 +1,35 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Gallery', ar: 'معرض الصور' }"
+  [title]="{ en: 'Life at Manar Al Batin', ar: 'الحياة في منار الباطن' }"
+  [subtitle]="{ en: 'A glimpse into the everyday moments that make our school special.', ar: 'لمحة من اللحظات اليومية التي تجعل مدرستنا مميزة.' }"
+/>
+
+<section class="section">
+  <div class="shell">
+    <div class="filters" role="tablist" aria-label="Gallery filters">
+      @for (f of filters; track f.key) {
+        <button
+          type="button"
+          role="tab"
+          class="filter"
+          [class.is-active]="active() === f.key"
+          [attr.aria-selected]="active() === f.key"
+          (click)="setFilter(f.key)"
+        >{{ i18n.pick(f.label) }}</button>
+      }
+    </div>
+
+    @if (images().length) {
+      <div class="masonry">
+        @for (img of images(); track img.src) {
+          <figure class="tile" appReveal [revealDelay]="$index * 50">
+            <img [appImg]="img.src" [alt]="i18n.pick(img.caption)" width="600" height="450" />
+            <figcaption>{{ i18n.pick(img.caption) }}</figcaption>
+          </figure>
+        }
+      </div>
+    } @else {
+      <p class="empty">{{ i18n.pick({ en: 'No photos in this category yet.', ar: 'لا توجد صور في هذا التصنيف بعد.' }) }}</p>
+    }
+  </div>
+</section>

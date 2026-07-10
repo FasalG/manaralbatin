@@ -1,0 +1,33 @@
+:host { display: block; }
+
+.mv { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+.mv__card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.8rem, 4vw, 2.8rem);
+  border-radius: var(--r-lg);
+  color: #fff;
+}
+.mv__card--mission { background: linear-gradient(140deg, var(--royal-deep), var(--royal)); }
+.mv__card--vision { background: linear-gradient(140deg, var(--green-deep), var(--green)); }
+.mv__ico {
+  display: grid; place-items: center; width: 60px; height: 60px; border-radius: 18px;
+  background: rgba(255, 255, 255, 0.16); color: #fff; margin-bottom: 1.2rem;
+}
+.mv__card h2 { color: #fff; font-size: 1.6rem; }
+.mv__card p { color: rgba(255, 255, 255, 0.9); font-size: 1.08rem; margin: 0; }
+
+.values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+.value { padding: 1.8rem; }
+.value__ico {
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px;
+  background: color-mix(in srgb, var(--gold) 22%, transparent); color: var(--gold-deep); margin-bottom: 1rem;
+}
+.value h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.value p { color: var(--ink-soft); margin: 0; font-size: 0.95rem; }
+
+@media (max-width: 860px) {
+  .mv { grid-template-columns: 1fr; }
+  .values { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) { .values { grid-template-columns: 1fr; } }

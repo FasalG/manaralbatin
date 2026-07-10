@@ -1,0 +1,161 @@
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="aurora"></div>
+  <div class="shell hero__grid">
+    <div class="hero__copy">
+      <span class="hero__badge">
+        <app-icon name="star" [size]="16" /> {{ i18n.pick(hero().badge) }}
+      </span>
+      <h1 class="hero__title">
+        {{ i18n.pick(hero().title) }}
+        <em>{{ i18n.pick(hero().highlight) }}</em>
+      </h1>
+      <p class="hero__sub">{{ i18n.pick(hero().subtitle) }}</p>
+      <div class="hero__cta">
+        <a class="btn btn--gold" [routerLink]="hero().primaryCta.path">
+          {{ i18n.pick(hero().primaryCta.label) }} <app-icon name="arrow" [size]="18" />
+        </a>
+        <a class="btn btn--ghost" [routerLink]="hero().secondaryCta.path">
+          {{ i18n.pick(hero().secondaryCta.label) }}
+        </a>
+      </div>
+      <ul class="hero__marks">
+        <li><app-icon name="check" [size]="18" /> {{ i18n.pick({ en: 'Cambridge Pathway', ar: 'مسار كامبريدج' }) }}</li>
+        <li><app-icon name="check" [size]="18" /> {{ i18n.pick({ en: 'KG1 – Grade 9', ar: 'روضة – الصف التاسع' }) }}</li>
+        <li><app-icon name="check" [size]="18" /> {{ i18n.pick({ en: 'Bilingual EN · AR', ar: 'ثنائي اللغة' }) }}</li>
+      </ul>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__photo">
+        <img [appImg]="hero().image" alt="Students at Manar Al Batin International School" width="640" height="720" />
+      </div>
+      <div class="hero__float hero__float--est">
+        <strong>{{ school().established }}</strong>
+        <span>{{ i18n.pick({ en: 'Established', ar: 'التأسيس' }) }}</span>
+      </div>
+      <div class="hero__float hero__float--rate">
+        <span class="hero__float-ico"><app-icon name="graduation" [size]="22" /></span>
+        <div>
+          <strong>98%</strong>
+          <span>{{ i18n.pick({ en: 'Parent satisfaction', ar: 'رضا الأهالي' }) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- accreditation trust strip -->
+  <div class="shell trust">
+    <span class="trust__label">{{ i18n.pick({ en: 'Recognised & accredited by', ar: 'معتمدون من' }) }}</span>
+    <ul>
+      @for (a of accreditations(); track $index) {
+        <li>{{ i18n.pick(a.name) }}</li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== WHY CHOOSE ===================== -->
+<section class="section">
+  <div class="shell">
+    <div class="head" appReveal>
+      <span class="eyebrow">{{ i18n.t('home.why.eyebrow') }}</span>
+      <h2 class="section-title">{{ i18n.pick({ en: 'An education that shapes the whole child', ar: 'تعليم يبني الطفل بأكمله' }) }}</h2>
+      <p class="section-lead">{{ i18n.pick({ en: 'Strong academics, caring teachers and a safe campus — everything a child needs to thrive.', ar: 'قوة أكاديمية ومعلمون مهتمون وحرم آمن، كل ما يحتاجه الطفل ليزدهر.' }) }}</p>
+    </div>
+    <div class="feature-grid">
+      @for (f of features(); track $index) {
+        <article class="feature card" appReveal [revealDelay]="$index * 80">
+          <span class="feature__ico"><app-icon [name]="f.icon" [size]="26" /></span>
+          <h3>{{ i18n.pick(f.title) }}</h3>
+          <p>{{ i18n.pick(f.text) }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FACILITIES ===================== -->
+<section class="section section--mist">
+  <div class="shell">
+    <div class="head head--row" appReveal>
+      <div>
+        <span class="eyebrow">{{ i18n.t('home.facilities.eyebrow') }}</span>
+        <h2 class="section-title">{{ i18n.pick({ en: 'Places built for curious minds', ar: 'أماكن مصمّمة للعقول الفضولية' }) }}</h2>
+      </div>
+      <a class="btn btn--ghost btn--sm" routerLink="/facilities">{{ i18n.t('cta.viewAll') }} <app-icon name="arrow" [size]="16" /></a>
+    </div>
+    <div class="facility-grid">
+      @for (fac of facilities(); track fac.slug) {
+        <a class="facility card" [routerLink]="['/facilities', fac.slug]" appReveal [revealDelay]="$index * 80">
+          <span class="facility__ico"><app-icon [name]="fac.icon" [size]="24" /></span>
+          <h3>{{ i18n.pick(fac.title) }}</h3>
+          <p>{{ i18n.pick(fac.summary) }}</p>
+          <span class="facility__more">{{ i18n.t('cta.learnMore') }} <app-icon name="arrow" [size]="15" /></span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="stats-band">
+  <div class="aurora"></div>
+  <div class="shell">
+    <div class="head head--center" appReveal>
+      <span class="eyebrow eyebrow--light">{{ i18n.t('home.stats.eyebrow') }}</span>
+      <h2 class="section-title">{{ i18n.pick({ en: 'Four decades of trusted learning', ar: 'أربعة عقود من التعليم الموثوق' }) }}</h2>
+    </div>
+    <div class="stats-grid">
+      @for (s of stats(); track $index) {
+        <div class="stat" appReveal [revealDelay]="$index * 90">
+          <div class="stat__num"><app-count-up [value]="s.value" [suffix]="s.suffix" /></div>
+          <div class="stat__label">{{ i18n.pick(s.label) }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRINCIPAL ===================== -->
+<section class="section">
+  <div class="shell principal">
+    <div class="principal__photo" appReveal>
+      <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="460" height="560" />
+      <div class="principal__badge"><app-icon name="graduation" [size]="20" /></div>
+    </div>
+    <div class="principal__copy" appReveal [revealDelay]="120">
+      <span class="eyebrow">{{ i18n.t('home.principal.eyebrow') }}</span>
+      <blockquote>“{{ i18n.pick(principal().quote) }}”</blockquote>
+      <p>{{ i18n.pick(principal().body) }}</p>
+      <div class="principal__sign">
+        <strong>{{ i18n.pick(principal().name) }}</strong>
+        <span>{{ i18n.pick(principal().role) }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEACHERS / ACCREDITATION ===================== -->
+<section class="section section--mist">
+  <div class="shell accred">
+    <div class="accred__lead" appReveal>
+      <span class="eyebrow">{{ i18n.t('home.accred.eyebrow') }}</span>
+      <h2 class="section-title">{{ i18n.pick({ en: 'Taught by experts. Held to standards.', ar: 'يُدرّسه خبراء. وفق معايير.' }) }}</h2>
+      <p class="section-lead">{{ i18n.pick({ en: 'Our 85+ qualified educators deliver an internationally benchmarked curriculum, with quality assured through recognised accreditation.', ar: 'يقدّم أكثر من 85 معلماً مؤهلاً منهجاً بمعايير دولية، مع ضمان الجودة عبر اعتمادات معترف بها.' }) }}</p>
+      <div class="accred__cta">
+        <a class="btn btn--green btn--sm" routerLink="/faculty"><app-icon name="users" [size]="18" /> {{ i18n.pick({ en: 'Meet the faculty', ar: 'تعرّف على المعلمين' }) }}</a>
+        <a class="btn btn--ghost btn--sm" routerLink="/academics">{{ i18n.pick({ en: 'Our programme', ar: 'برنامجنا' }) }}</a>
+      </div>
+    </div>
+    <div class="accred__cards">
+      @for (a of accreditations(); track $index) {
+        <div class="accred__card card" appReveal [revealDelay]="$index * 90">
+          <span class="accred__ico"><app-icon name="shield" [size]="26" /></span>
+          <strong>{{ i18n.pick(a.name) }}</strong>
+          <span>{{ i18n.pick(a.note) }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>

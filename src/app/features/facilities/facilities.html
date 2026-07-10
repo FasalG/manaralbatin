@@ -1,0 +1,23 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Facilities', ar: 'المرافق' }"
+  [title]="{ en: 'A campus designed for learning and joy', ar: 'حرم مصمّم للتعلّم والبهجة' }"
+  [subtitle]="{ en: 'Safe, modern spaces that bring lessons to life — inside and out.', ar: 'مساحات آمنة وحديثة تجعل الدروس تنبض بالحياة، داخلاً وخارجاً.' }"
+/>
+
+<section class="section">
+  <div class="shell fac-list">
+    @for (fac of facilities(); track fac.slug) {
+      <a class="fac" [routerLink]="['/facilities', fac.slug]" appReveal [revealDelay]="$index * 70">
+        <div class="fac__media">
+          <img [appImg]="fac.image" [alt]="i18n.pick(fac.title)" width="640" height="440" />
+          <span class="fac__ico"><app-icon [name]="fac.icon" [size]="24" /></span>
+        </div>
+        <div class="fac__body">
+          <h2>{{ i18n.pick(fac.title) }}</h2>
+          <p>{{ i18n.pick(fac.summary) }}</p>
+          <span class="fac__more">{{ i18n.t('cta.learnMore') }} <app-icon name="arrow" [size]="16" /></span>
+        </div>
+      </a>
+    }
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<section class="login">
+  <div class="aurora"></div>
+  <div class="login__card card">
+    <a class="login__brand" href="/"><app-logo [size]="52" /></a>
+    <h1>{{ i18n.t('admin.login') }}</h1>
+    <p class="login__sub">{{ i18n.pick({ en: 'Sign in to manage website content and view enquiries.', ar: 'سجّل الدخول لإدارة محتوى الموقع وعرض الطلبات.' }) }}</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="email">{{ i18n.t('admin.email') }}</label>
+        <input id="email" type="email" dir="ltr" formControlName="email" autocomplete="username" />
+      </div>
+      <div class="field">
+        <label for="password">{{ i18n.t('admin.password') }}</label>
+        <input id="password" type="password" dir="ltr" formControlName="password" autocomplete="current-password" />
+      </div>
+
+      @if (error()) { <p class="login__error" role="alert"><app-icon name="shield" [size]="16" /> {{ error() }}</p> }
+
+      <button type="submit" class="btn btn--gold login__submit" [disabled]="loading()">
+        @if (loading()) { {{ i18n.t('form.sending') }} } @else { {{ i18n.t('admin.signIn') }} }
+      </button>
+    </form>
+
+    @if (demoMode) {
+      <div class="login__demo">
+        <strong>{{ i18n.pick({ en: 'Preview mode', ar: 'وضع المعاينة' }) }}</strong>
+        <p>{{ i18n.pick({ en: 'Firebase is not configured yet. Use the demo login to preview the dashboard:', ar: 'لم يتم إعداد Firebase بعد. استخدم بيانات المعاينة للاطلاع على اللوحة:' }) }}</p>
+        <code>admin&#64;manaralbatin.local · manar2026</code>
+      </div>
+    }
+  </div>
+</section>

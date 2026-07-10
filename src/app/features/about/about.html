@@ -1,0 +1,59 @@
+<app-page-hero
+  [eyebrow]="{ en: 'About us', ar: 'من نحن' }"
+  [title]="{ en: 'A school our community has trusted for four decades', ar: 'مدرسة وثق بها مجتمعنا على مدى أربعة عقود' }"
+  [subtitle]="{ en: 'Rooted in our values, open to the world — the story of Manar Al Batin.', ar: 'راسخون في قيمنا، منفتحون على العالم — قصة منار الباطن.' }"
+/>
+
+<section class="section">
+  <div class="shell story">
+    <div class="story__text" appReveal>
+      <span class="eyebrow">{{ i18n.pick({ en: 'Our story', ar: 'قصتنا' }) }}</span>
+      <h2 class="section-title">{{ i18n.pick({ en: 'Learning that lasts a lifetime', ar: 'تعلّم يدوم مدى الحياة' }) }}</h2>
+      <p class="lead">{{ i18n.pick(about().story) }}</p>
+      <div class="story__cta">
+        <a class="btn btn--sm" routerLink="/aim">{{ i18n.pick({ en: 'Mission & vision', ar: 'الرسالة والرؤية' }) }}</a>
+        <a class="btn btn--ghost btn--sm" routerLink="/academics">{{ i18n.pick({ en: 'Our academics', ar: 'برامجنا الأكاديمية' }) }}</a>
+      </div>
+    </div>
+    <div class="story__stats" appReveal [revealDelay]="120">
+      @for (s of stats(); track $index) {
+        <div class="mini-stat card">
+          <strong>{{ s.value }}{{ s.suffix }}</strong>
+          <span>{{ i18n.pick(s.label) }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section--mist">
+  <div class="shell">
+    <div class="head--center" appReveal>
+      <span class="eyebrow" style="justify-content:center">{{ i18n.pick({ en: 'What we stand for', ar: 'ما نؤمن به' }) }}</span>
+      <h2 class="section-title mx-auto">{{ i18n.pick({ en: 'Three pillars hold up everything we do', ar: 'ثلاث ركائز تسند كل ما نقوم به' }) }}</h2>
+    </div>
+    <div class="pillars">
+      @for (p of about().pillars; track $index) {
+        <article class="pillar card" appReveal [revealDelay]="$index * 90">
+          <span class="pillar__ico"><app-icon [name]="['graduation','heart','sprout'][$index] || 'star'" [size]="26" /></span>
+          <h3>{{ i18n.pick(p.title) }}</h3>
+          <p>{{ i18n.pick(p.text) }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell principal-quote card" appReveal>
+    <div class="principal-quote__photo">
+      <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="240" height="280" />
+    </div>
+    <div>
+      <app-icon name="star" [size]="26" />
+      <blockquote>“{{ i18n.pick(principal().quote) }}”</blockquote>
+      <strong>{{ i18n.pick(principal().name) }}</strong>
+      <span>{{ i18n.pick(principal().role) }}</span>
+    </div>
+  </div>
+</section>

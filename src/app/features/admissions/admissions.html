@@ -1,0 +1,47 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Admissions', ar: 'القبول والتسجيل' }"
+  [title]="{ en: 'Join our school family for 2026 – 2027', ar: 'انضم إلى أسرتنا للعام 2026 – 2027' }"
+  [subtitle]="{ en: 'Admissions are open for KG1 to Grade 9. Here is how to apply.', ar: 'القبول مفتوح من الروضة الأولى حتى الصف التاسع. إليك طريقة التقديم.' }"
+/>
+
+<section class="section">
+  <div class="shell">
+    <div class="head--center" appReveal>
+      <span class="eyebrow" style="justify-content:center">{{ i18n.pick({ en: 'How to apply', ar: 'خطوات التقديم' }) }}</span>
+      <h2 class="section-title mx-auto">{{ i18n.pick({ en: 'Four simple steps', ar: 'أربع خطوات بسيطة' }) }}</h2>
+    </div>
+    <ol class="steps">
+      @for (s of steps; track $index) {
+        <li class="step card" appReveal [revealDelay]="$index * 80">
+          <span class="step__n">{{ $index + 1 }}</span>
+          <span class="step__ico"><app-icon [name]="s.icon" [size]="24" /></span>
+          <h3>{{ i18n.pick(s.title) }}</h3>
+          <p>{{ i18n.pick(s.text) }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<section class="section section--mist">
+  <div class="shell admit-links">
+    <a class="admit card" routerLink="/admissions/fees" appReveal>
+      <span class="admit__ico"><app-icon name="book" [size]="26" /></span>
+      <h3>{{ i18n.t('admissions.fees') }}</h3>
+      <p>{{ i18n.pick({ en: 'Transparent tuition and registration details.', ar: 'تفاصيل واضحة للرسوم الدراسية والتسجيل.' }) }}</p>
+      <span class="admit__more">{{ i18n.t('cta.viewFees') }} <app-icon name="arrow" [size]="16" /></span>
+    </a>
+    <a class="admit card" routerLink="/admissions/requirements" appReveal [revealDelay]="80">
+      <span class="admit__ico"><app-icon name="check" [size]="26" /></span>
+      <h3>{{ i18n.t('admissions.requirements') }}</h3>
+      <p>{{ i18n.pick({ en: 'The documents you need to enrol your child.', ar: 'المستندات اللازمة لتسجيل طفلك.' }) }}</p>
+      <span class="admit__more">{{ i18n.t('cta.viewRequirements') }} <app-icon name="arrow" [size]="16" /></span>
+    </a>
+    <a class="admit admit--primary" routerLink="/admissions/register" appReveal [revealDelay]="160">
+      <span class="admit__ico"><app-icon name="graduation" [size]="26" /></span>
+      <h3>{{ i18n.t('admissions.register') }}</h3>
+      <p>{{ i18n.pick({ en: 'Start your registration enquiry now.', ar: 'ابدأ طلب التسجيل الآن.' }) }}</p>
+      <span class="admit__more">{{ i18n.t('cta.startRegistration') }} <app-icon name="arrow" [size]="16" /></span>
+    </a>
+  </div>
+</section>

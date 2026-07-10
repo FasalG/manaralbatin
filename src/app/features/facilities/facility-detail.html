@@ -1,0 +1,51 @@
+@if (facility(); as fac) {
+  <header class="detail-hero">
+    <div class="aurora"></div>
+    <div class="shell detail-hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a routerLink="/">{{ i18n.t('nav.home') }}</a><span aria-hidden="true">/</span>
+        <a routerLink="/facilities">{{ i18n.t('nav.facilities') }}</a><span aria-hidden="true">/</span>
+        <span>{{ i18n.pick(fac.title) }}</span>
+      </nav>
+      <span class="detail-hero__ico"><app-icon [name]="fac.icon" [size]="30" /></span>
+      <h1>{{ i18n.pick(fac.title) }}</h1>
+      <p>{{ i18n.pick(fac.summary) }}</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="shell detail">
+      <div class="detail__media" appReveal>
+        <img [appImg]="fac.image" [alt]="i18n.pick(fac.title)" width="720" height="520" />
+      </div>
+      <div class="detail__body" appReveal [revealDelay]="120">
+        <p>{{ i18n.pick(fac.body) }}</p>
+        <a class="btn btn--sm" routerLink="/admissions/register">{{ i18n.t('cta.startRegistration') }} <app-icon name="arrow" [size]="16" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="shell">
+      <h2 class="section-title" style="margin-bottom:1.6rem">{{ i18n.pick({ en: 'Explore more facilities', ar: 'استكشف مرافق أخرى' }) }}</h2>
+      <div class="more-grid">
+        @for (o of others(); track o.slug) {
+          <a class="more card" [routerLink]="['/facilities', o.slug]">
+            <span class="more__ico"><app-icon [name]="o.icon" [size]="22" /></span>
+            <div>
+              <strong>{{ i18n.pick(o.title) }}</strong>
+              <span>{{ i18n.pick(o.summary) }}</span>
+            </div>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="section">
+    <div class="shell text-center missing">
+      <h1>{{ i18n.pick({ en: 'Facility not found', ar: 'المرفق غير موجود' }) }}</h1>
+      <a class="btn btn--sm" routerLink="/facilities">{{ i18n.pick({ en: 'Back to facilities', ar: 'العودة إلى المرافق' }) }}</a>
+    </div>
+  </section>
+}

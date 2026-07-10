@@ -1,0 +1,46 @@
+<a class="skip-link" href="#main">{{ i18n.pick({ en: 'Skip to content', ar: 'تخطَّ إلى المحتوى' }) }}</a>
+
+<div class="bar shell--wide">
+  <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="Manar Al Batin — home">
+    <app-logo [size]="46" />
+    <span class="brand__text">
+      <strong>{{ i18n.pick({ en: 'Manar Al Batin', ar: 'منار الباطن' }) }}</strong>
+      <small>{{ i18n.pick({ en: 'International School', ar: 'المدارس العالمية' }) }}</small>
+    </span>
+  </a>
+
+  <nav class="nav" [class.nav--open]="menuOpen()" aria-label="Primary">
+    @for (item of nav; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+        (click)="closeMenu()"
+        >{{ i18n.t(item.key) }}</a
+      >
+    }
+    <div class="nav__cta">
+      <a class="btn btn--gold btn--sm" routerLink="/admissions/register" (click)="closeMenu()">
+        {{ i18n.t('nav.apply') }}
+      </a>
+    </div>
+  </nav>
+
+  <div class="actions">
+    <button type="button" class="lang" (click)="i18n.toggle()" [attr.aria-label]="i18n.t('lang.toggle')">
+      <span>{{ i18n.t('lang.toggle') }}</span>
+    </button>
+    <a class="btn btn--gold btn--sm apply-desktop" routerLink="/admissions/register">
+      {{ i18n.t('nav.apply') }}
+    </a>
+    <button
+      type="button"
+      class="burger"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="i18n.t('nav.menu')"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>

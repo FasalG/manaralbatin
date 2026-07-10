@@ -1,0 +1,54 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Academics', ar: 'البرامج الأكاديمية' }"
+  [title]="{ en: 'A Cambridge journey from KG1 to Grade 9', ar: 'رحلة كامبريدج من الروضة إلى الصف التاسع' }"
+  [subtitle]="{ en: 'A connected curriculum that grows with your child at every stage.', ar: 'منهج متكامل ينمو مع طفلك في كل مرحلة.' }"
+/>
+
+<section class="section">
+  <div class="shell">
+    @for (stage of stages(); track stage.key) {
+      <div class="stage" appReveal>
+        <div class="stage__head">
+          <h2>{{ i18n.pick(stage.label) }}</h2>
+          <span class="chip">{{ i18n.pick(stage.note) }}</span>
+        </div>
+        <div class="grade-grid">
+          @for (g of stage.items; track trackGrade($index, g)) {
+            <article class="grade card">
+              <span class="grade__code">{{ g.code }}</span>
+              <h3>{{ i18n.pick(g.name) }}</h3>
+              <p class="grade__age">{{ i18n.t('academics.age') }} {{ g.ageRange }}</p>
+              <p class="grade__focus">{{ i18n.pick(g.focus) }}</p>
+            </article>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="section section--mist">
+  <div class="shell">
+    <div class="head--center" appReveal>
+      <span class="eyebrow" style="justify-content:center"><app-icon name="calendar" [size]="16" /> {{ i18n.t('academics.calendar') }}</span>
+      <h2 class="section-title mx-auto">{{ i18n.pick({ en: 'Key dates for 2026 – 2027', ar: 'تواريخ مهمة 2026 – 2027' }) }}</h2>
+      <p class="section-lead mx-auto">{{ i18n.pick({ en: 'A snapshot of the year ahead. The full calendar is shared with enrolled families.', ar: 'لمحة عن العام القادم. يُشارك التقويم الكامل مع الأسر المسجّلة.' }) }}</p>
+    </div>
+    <ol class="timeline">
+      @for (e of calendar(); track $index) {
+        <li class="event" appReveal [revealDelay]="$index * 60" [attr.data-type]="e.type">
+          <span class="event__dot"></span>
+          <div class="event__body card">
+            <span class="event__tag" [attr.data-type]="e.type">{{ i18n.pick(typeLabel(e.type)) }}</span>
+            <strong>{{ i18n.pick(e.title) }}</strong>
+            <span class="event__date">{{ i18n.pick(e.date) }}</span>
+          </div>
+        </li>
+      }
+    </ol>
+    <div class="calendar-cta" appReveal>
+      <p>{{ i18n.pick({ en: 'Download the full academic calendar and school brochure from our downloads page.', ar: 'حمّل التقويم الدراسي الكامل ومطوية المدرسة من صفحة التحميلات.' }) }}</p>
+      <a class="btn btn--sm" routerLink="/resources"><app-icon name="download" [size]="16" /> {{ i18n.pick({ en: 'Downloads', ar: 'التحميلات' }) }}</a>
+    </div>
+  </div>
+</section>

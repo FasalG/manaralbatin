@@ -1,0 +1,38 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Mission & vision', ar: 'الرسالة والرؤية' }"
+  [title]="{ en: 'What we aim for, every single day', ar: 'ما نسعى إليه في كل يوم' }"
+  [subtitle]="{ en: 'A clear purpose guides our teaching, our care and our community.', ar: 'هدف واضح يقود تعليمنا ورعايتنا ومجتمعنا.' }"
+/>
+
+<section class="section">
+  <div class="shell mv">
+    <article class="mv__card mv__card--mission" appReveal>
+      <span class="mv__ico"><app-icon name="graduation" [size]="28" /></span>
+      <h2>{{ i18n.pick({ en: 'Our mission', ar: 'رسالتنا' }) }}</h2>
+      <p>{{ i18n.pick(aim().mission) }}</p>
+    </article>
+    <article class="mv__card mv__card--vision" appReveal [revealDelay]="120">
+      <span class="mv__ico"><app-icon name="globe" [size]="28" /></span>
+      <h2>{{ i18n.pick({ en: 'Our vision', ar: 'رؤيتنا' }) }}</h2>
+      <p>{{ i18n.pick(aim().vision) }}</p>
+    </article>
+  </div>
+</section>
+
+<section class="section section--mist">
+  <div class="shell">
+    <div class="head--center" appReveal>
+      <span class="eyebrow" style="justify-content:center">{{ i18n.pick({ en: 'Our core values', ar: 'قيمنا الأساسية' }) }}</span>
+      <h2 class="section-title mx-auto">{{ i18n.pick({ en: 'The character we grow in every child', ar: 'الشخصية التي نبنيها في كل طفل' }) }}</h2>
+    </div>
+    <div class="values">
+      @for (v of aim().values; track $index) {
+        <article class="value card" appReveal [revealDelay]="$index * 80">
+          <span class="value__ico"><app-icon [name]="valueIcons[$index] || 'star'" [size]="24" /></span>
+          <h3>{{ i18n.pick(v.title) }}</h3>
+          <p>{{ i18n.pick(v.text) }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

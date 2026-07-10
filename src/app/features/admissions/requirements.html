@@ -1,0 +1,24 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Registration requirements', ar: 'متطلبات التسجيل' }"
+  [title]="{ en: 'What you need to enrol your child', ar: 'ما تحتاجه لتسجيل طفلك' }"
+  [subtitle]="{ en: 'Have these ready to make registration quick and smooth.', ar: 'جهّز هذه المستندات ليكون التسجيل سريعاً وسلساً.' }"
+/>
+
+<section class="section">
+  <div class="shell req">
+    <ul class="req__list">
+      @for (r of requirements(); track $index) {
+        <li class="req__item card" appReveal [revealDelay]="$index * 60">
+          <span class="req__check"><app-icon name="check" [size]="18" /></span>
+          <span>{{ i18n.pick(r.text) }}</span>
+        </li>
+      }
+    </ul>
+    <aside class="req__aside card" appReveal>
+      <h2>{{ i18n.pick({ en: 'Ready to begin?', ar: 'جاهز للبدء؟' }) }}</h2>
+      <p>{{ i18n.pick({ en: 'You can submit the registration enquiry now and bring the documents when you visit.', ar: 'يمكنك إرسال طلب التسجيل الآن وإحضار المستندات عند الزيارة.' }) }}</p>
+      <a class="btn btn--gold" routerLink="/admissions/register">{{ i18n.t('cta.startRegistration') }} <app-icon name="arrow" [size]="18" /></a>
+      <a class="btn btn--ghost btn--sm" routerLink="/admissions/fees">{{ i18n.t('cta.viewFees') }}</a>
+    </aside>
+  </div>
+</section>

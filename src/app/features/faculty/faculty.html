@@ -1,0 +1,41 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Our faculty', ar: 'هيئة التدريس' }"
+  [title]="{ en: 'Caring teachers who know every child', ar: 'معلمون مهتمون يعرفون كل طفل' }"
+  [subtitle]="{ en: 'Qualified, dedicated educators are the heart of our school.', ar: 'معلمون مؤهلون ومخلصون هم قلب مدرستنا.' }"
+/>
+
+<section class="section">
+  <div class="shell">
+    <div class="leader card" appReveal>
+      <div class="leader__photo">
+        <img [appImg]="leadership().photo" [alt]="i18n.pick(leadership().name)" width="300" height="360" />
+      </div>
+      <div class="leader__copy">
+        <span class="chip"><app-icon name="star" [size]="14" /> {{ i18n.pick({ en: 'School leadership', ar: 'قيادة المدرسة' }) }}</span>
+        <h2>{{ i18n.pick(leadership().name) }}</h2>
+        <p class="leader__role">{{ i18n.pick(leadership().role) }}</p>
+        <p>{{ i18n.pick(leadership().body) }}</p>
+      </div>
+    </div>
+
+    <div class="head--center" appReveal style="margin-top:3.5rem">
+      <span class="eyebrow" style="justify-content:center">{{ i18n.pick({ en: 'Meet the team', ar: 'تعرّف على الفريق' }) }}</span>
+      <h2 class="section-title mx-auto">{{ i18n.pick({ en: 'The people behind the progress', ar: 'الأشخاص وراء التقدّم' }) }}</h2>
+    </div>
+
+    <div class="team">
+      @for (m of faculty(); track $index) {
+        <article class="member card" appReveal [revealDelay]="$index * 70">
+          <div class="member__photo">
+            <img [appImg]="m.photo" [alt]="i18n.pick(m.name)" width="220" height="220" />
+          </div>
+          <h3>{{ i18n.pick(m.name) }}</h3>
+          <p class="member__role">{{ i18n.pick(m.role) }}</p>
+          <span class="member__subject"><app-icon name="book" [size]="14" /> {{ i18n.pick(m.subject) }}</span>
+        </article>
+      }
+    </div>
+
+    <p class="note" appReveal>{{ i18n.pick({ en: 'Full faculty profiles and photos will be added soon. Admins can update names, roles and images from the dashboard.', ar: 'ستُضاف ملفات المعلمين وصورهم قريباً. يمكن للمشرفين تحديث الأسماء والأدوار والصور من لوحة التحكم.' }) }}</p>
+  </div>
+</section>

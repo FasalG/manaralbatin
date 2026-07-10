@@ -1,0 +1,43 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Contact', ar: 'اتصل بنا' }"
+  [title]="{ en: 'We would love to hear from you', ar: 'يسعدنا تواصلك معنا' }"
+  [subtitle]="{ en: 'Questions about admissions, fees or a school visit? Reach out any time.', ar: 'أسئلة حول القبول أو الرسوم أو زيارة المدرسة؟ تواصل معنا في أي وقت.' }"
+/>
+
+<section class="section">
+  <div class="shell contact">
+    <div class="contact__cards">
+      <a class="ccard card" [href]="'tel:' + school().phone" appReveal>
+        <span class="ccard__ico"><app-icon name="phone" [size]="24" /></span>
+        <strong>{{ i18n.t('cta.callUs') }}</strong>
+        <span dir="ltr">{{ school().phone }}</span>
+      </a>
+      <a class="ccard card" [href]="whatsappLink()" target="_blank" rel="noopener" appReveal [revealDelay]="70">
+        <span class="ccard__ico ccard__ico--green"><app-icon name="whatsapp" [size]="24" /></span>
+        <strong>WhatsApp</strong>
+        <span dir="ltr">{{ school().phone }}</span>
+      </a>
+      <a class="ccard card" [href]="'mailto:' + school().email" appReveal [revealDelay]="140">
+        <span class="ccard__ico ccard__ico--gold"><app-icon name="mail" [size]="24" /></span>
+        <strong>{{ i18n.t('form.email') }}</strong>
+        <span dir="ltr">{{ school().email }}</span>
+      </a>
+    </div>
+
+    <div class="contact__panel card" appReveal>
+      <div class="contact__info">
+        <h2>{{ i18n.pick({ en: 'Visit our campus', ar: 'زوروا حرمنا' }) }}</h2>
+        <p class="contact__addr"><app-icon name="pin" [size]="20" /> {{ i18n.pick(school().address) }}</p>
+        <p class="contact__hours"><app-icon name="clock" [size]="20" /> {{ i18n.pick({ en: 'Sunday – Thursday · 7:00 AM – 2:30 PM', ar: 'الأحد – الخميس · 7:00 ص – 2:30 م' }) }}</p>
+        <div class="contact__actions">
+          <a class="btn btn--sm" [href]="school().mapUrl" target="_blank" rel="noopener"><app-icon name="pin" [size]="16" /> {{ i18n.t('cta.getDirections') }}</a>
+          <a class="btn btn--gold btn--sm" routerLink="/admissions/register">{{ i18n.t('cta.startRegistration') }}</a>
+        </div>
+      </div>
+      <a class="contact__map" [href]="school().mapUrl" target="_blank" rel="noopener" aria-label="Open map">
+        <div class="contact__map-pin"><app-icon name="pin" [size]="30" /></div>
+        <span>{{ i18n.pick({ en: 'Hafar Al Batin, KSA', ar: 'حفر الباطن، السعودية' }) }}</span>
+      </a>
+    </div>
+  </div>
+</section>

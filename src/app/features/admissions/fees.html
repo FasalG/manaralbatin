@@ -1,0 +1,38 @@
+<app-page-hero
+  [eyebrow]="{ en: 'Fee structure', ar: 'الرسوم الدراسية' }"
+  [title]="{ en: 'Clear, transparent school fees', ar: 'رسوم دراسية واضحة وشفافة' }"
+  [subtitle]="{ en: 'Great education is an investment. We keep our fees clear and offer flexible plans.', ar: 'التعليم الجيّد استثمار. نحرص على وضوح الرسوم ونوفّر خطط سداد مرنة.' }"
+/>
+
+<section class="section">
+  <div class="shell">
+    <div class="fee-table card" appReveal>
+      <div class="fee-row fee-row--head">
+        <span>{{ i18n.pick({ en: 'Stage', ar: 'المرحلة' }) }}</span>
+        <span>{{ i18n.pick({ en: 'Annual tuition', ar: 'الرسوم السنوية' }) }}</span>
+        <span>{{ i18n.pick({ en: 'Registration', ar: 'رسوم التسجيل' }) }}</span>
+        <span>{{ i18n.pick({ en: 'Notes', ar: 'ملاحظات' }) }}</span>
+      </div>
+      @for (row of fees(); track $index) {
+        <div class="fee-row">
+          <span class="fee-grade" [attr.data-label]="i18n.pick({ en: 'Stage', ar: 'المرحلة' })">{{ i18n.pick(row.grade) }}</span>
+          <span [attr.data-label]="i18n.pick({ en: 'Tuition', ar: 'الرسوم' })">{{ row.tuition }}</span>
+          <span [attr.data-label]="i18n.pick({ en: 'Registration', ar: 'التسجيل' })">{{ row.registration }}</span>
+          <span class="fee-note" [attr.data-label]="i18n.pick({ en: 'Notes', ar: 'ملاحظات' })">{{ i18n.pick(row.note) }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="fee-callout card" appReveal>
+      <app-icon name="phone" [size]="24" />
+      <div>
+        <strong>{{ i18n.pick({ en: 'Fees are confirmed by our admissions office', ar: 'تُعتمد الرسوم من مكتب القبول' }) }}</strong>
+        <p>{{ i18n.pick({ en: 'The current fee sheet, sibling discounts and instalment plans are shared on request. Contact us or start an enquiry and we will send you the details.', ar: 'تُرسل قائمة الرسوم الحالية وخصومات الإخوة وخطط التقسيط عند الطلب. تواصل معنا أو ابدأ طلباً وسنرسل لك التفاصيل.' }) }}</p>
+        <div class="fee-actions">
+          <a class="btn btn--sm" routerLink="/admissions/register">{{ i18n.t('cta.startRegistration') }}</a>
+          <a class="btn btn--ghost btn--sm" [href]="'tel:' + school().phone">{{ i18n.t('cta.callUs') }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
