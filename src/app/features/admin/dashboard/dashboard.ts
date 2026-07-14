@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/services/i18n.service';
 import { ContentService } from '../../../core/services/content.service';
+import { SEED_CONTENT } from '../../../core/services/seed-content';
 import { AuthService } from '../../../core/services/auth.service';
 import { FirebaseDataService } from '../../../core/services/firebase-data.service';
 import { RegistrationService } from '../../../core/services/registration.service';
@@ -41,8 +42,11 @@ export class AdminDashboardPage {
   protected readonly enquiries = signal<RegistrationEnquiry[]>([]);
   protected readonly firebaseOn = this.fb.isEnabled;
 
-  /** A working copy the admin edits; committed on Save. */
-  protected draft: SiteContent = structuredClone(this.content.content());
+  /** A working copy the admin edits; committed on Save. Falls back to the seed
+   *  defaults when Firebase has no content yet, so an empty project is editable. */
+  protected draft: SiteContent = structuredClone(
+    this.content.ready() ? this.content.content() : SEED_CONTENT,
+  );
 
   constructor() {
     void this.loadEnquiries();

@@ -1,5 +1,17 @@
-<app-header />
-<main id="main">
-  <router-outlet />
-</main>
-<app-footer />
+@if (content.ready() || isAdminRoute()) {
+  @if (content.ready()) { <app-header /> }
+  <main id="main">
+    <router-outlet />
+  </main>
+  @if (content.ready()) { <app-footer /> }
+} @else if (content.loaded()) {
+  <div class="app-state">
+    <p>No content has been published yet.</p>
+    <a href="/admin">Open the admin dashboard →</a>
+  </div>
+} @else {
+  <div class="app-state">
+    <span class="app-state__spinner" aria-hidden="true"></span>
+    <p>Loading…</p>
+  </div>
+}
