@@ -20,6 +20,7 @@ export interface SchoolInfo {
   name: LocalizedText;
   shortName: LocalizedText;
   tagline: LocalizedText;
+  logoUrl: string;           // uploaded logo; empty = use the built-in SVG crest
   established: string;        // e.g. "1985"
   curriculum: LocalizedText;  // e.g. "Cambridge Pathway"
   phone: string;
@@ -113,6 +114,15 @@ export interface ResourceItem {
   fileLabel: string;  // e.g. "PDF · 2.4 MB"
 }
 
+/** A leadership message (principal, director, etc.). */
+export interface LeaderMessage {
+  name: LocalizedText;
+  role: LocalizedText;
+  photo: string;
+  quote: LocalizedText;
+  body: LocalizedText;
+}
+
 export interface SiteContent {
   school: SchoolInfo;
   hero: Hero;
@@ -120,13 +130,8 @@ export interface SiteContent {
   features: Feature[];
   facilities: FacilityItem[];
   accreditations: Accreditation[];
-  principalMessage: {
-    name: LocalizedText;
-    role: LocalizedText;
-    photo: string;
-    quote: LocalizedText;
-    body: LocalizedText;
-  };
+  directorMessage: LeaderMessage;
+  principalMessage: LeaderMessage;
   faculty: FacultyMember[];
   gallery: GalleryImage[];
   grades: GradeLevel[];

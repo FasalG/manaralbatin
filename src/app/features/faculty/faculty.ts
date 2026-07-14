@@ -17,5 +17,6 @@ export class FacultyPage {
   protected readonly i18n = inject(I18nService);
   private readonly content = inject(ContentService);
   protected readonly faculty = computed(() => this.content.content().faculty);
-  protected readonly leadership = computed(() => this.content.content().principalMessage);
+  protected readonly director = computed(() => this.content.content().directorMessage);
+  protected readonly principal = computed(() => this.content.content().principalMessage);
 }

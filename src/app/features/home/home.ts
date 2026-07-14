@@ -26,4 +26,5 @@ export class HomePage {
   protected readonly facilities = computed(() => this.c().facilities.slice(0, 4));
   protected readonly accreditations = computed(() => this.c().accreditations);
   protected readonly principal = computed(() => this.c().principalMessage);
+  protected readonly director = computed(() => this.c().directorMessage);
 }

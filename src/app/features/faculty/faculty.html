@@ -6,15 +6,29 @@
 
 <section class="section">
   <div class="shell">
-    <div class="leader card" appReveal>
-      <div class="leader__photo">
-        <img [appImg]="leadership().photo" [alt]="i18n.pick(leadership().name)" width="300" height="360" />
+    <div class="leaders-grid">
+      <div class="leader card" appReveal>
+        <div class="leader__photo">
+          <img [appImg]="director().photo" [alt]="i18n.pick(director().name)" width="300" height="360" />
+        </div>
+        <div class="leader__copy">
+          <span class="chip"><app-icon name="star" [size]="14" /> {{ i18n.pick({ en: 'Director', ar: 'المدير العام' }) }}</span>
+          <h2>{{ i18n.pick(director().name) }}</h2>
+          <p class="leader__role">{{ i18n.pick(director().role) }}</p>
+          <p>{{ i18n.pick(director().body) }}</p>
+        </div>
       </div>
-      <div class="leader__copy">
-        <span class="chip"><app-icon name="star" [size]="14" /> {{ i18n.pick({ en: 'School leadership', ar: 'قيادة المدرسة' }) }}</span>
-        <h2>{{ i18n.pick(leadership().name) }}</h2>
-        <p class="leader__role">{{ i18n.pick(leadership().role) }}</p>
-        <p>{{ i18n.pick(leadership().body) }}</p>
+
+      <div class="leader card" appReveal [revealDelay]="100">
+        <div class="leader__photo">
+          <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="300" height="360" />
+        </div>
+        <div class="leader__copy">
+          <span class="chip"><app-icon name="graduation" [size]="14" /> {{ i18n.pick({ en: 'Principal', ar: 'مدير المدرسة' }) }}</span>
+          <h2>{{ i18n.pick(principal().name) }}</h2>
+          <p class="leader__role">{{ i18n.pick(principal().role) }}</p>
+          <p>{{ i18n.pick(principal().body) }}</p>
+        </div>
       </div>
     </div>
 

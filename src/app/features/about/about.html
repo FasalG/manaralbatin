@@ -45,15 +45,29 @@
 </section>
 
 <section class="section">
-  <div class="shell principal-quote card" appReveal>
-    <div class="principal-quote__photo">
-      <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="240" height="280" />
+  <div class="shell quotes">
+    <div class="principal-quote card" appReveal>
+      <div class="principal-quote__photo">
+        <img [appImg]="director().photo" [alt]="i18n.pick(director().name)" width="240" height="280" />
+      </div>
+      <div>
+        <app-icon name="star" [size]="26" />
+        <blockquote>“{{ i18n.pick(director().quote) }}”</blockquote>
+        <strong>{{ i18n.pick(director().name) }}</strong>
+        <span>{{ i18n.pick(director().role) }}</span>
+      </div>
     </div>
-    <div>
-      <app-icon name="star" [size]="26" />
-      <blockquote>“{{ i18n.pick(principal().quote) }}”</blockquote>
-      <strong>{{ i18n.pick(principal().name) }}</strong>
-      <span>{{ i18n.pick(principal().role) }}</span>
+
+    <div class="principal-quote card" appReveal [revealDelay]="100">
+      <div class="principal-quote__photo">
+        <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="240" height="280" />
+      </div>
+      <div>
+        <app-icon name="graduation" [size]="26" />
+        <blockquote>“{{ i18n.pick(principal().quote) }}”</blockquote>
+        <strong>{{ i18n.pick(principal().name) }}</strong>
+        <span>{{ i18n.pick(principal().role) }}</span>
+      </div>
     </div>
   </div>
 </section>

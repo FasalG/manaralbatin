@@ -13,6 +13,7 @@ export const SEED_CONTENT: SiteContent = {
       en: 'Confident. Curious. Capable.',
       ar: 'واثقون. فضوليون. قادرون.',
     },
+    logoUrl: '',
     established: '1985',
     curriculum: { en: 'Cambridge Pathway', ar: 'مسار كامبريدج' },
     phone: '+966 54 109 60 28',
@@ -177,9 +178,23 @@ export const SEED_CONTENT: SiteContent = {
     { name: { en: 'International Standards', ar: 'معايير دولية' }, note: { en: 'Quality-assured teaching', ar: 'جودة تعليمية مضمونة' }, logo: 'assets/images/accred-intl.svg' },
   ],
 
+  directorMessage: {
+    name: { en: 'Director Name', ar: 'اسم المدير العام' },
+    role: { en: 'Director & Chairman', ar: 'المدير العام ورئيس مجلس الإدارة' },
+    photo: 'assets/images/director.jpg',
+    quote: {
+      en: 'We do not just build a school — we build a future for our community.',
+      ar: 'نحن لا نبني مدرسة فحسب، بل نبني مستقبلاً لمجتمعنا.',
+    },
+    body: {
+      en: 'Since our founding, our goal has never changed: to give the children of Hafar Al Batin an education that opens doors anywhere in the world while keeping them proud of who they are. We invest in outstanding teachers, safe modern facilities and a genuine partnership with every family. When you choose Manar Al Batin, you join a community that believes in your child as much as you do.',
+      ar: 'منذ تأسيسنا لم يتغيّر هدفنا: أن نمنح أبناء حفر الباطن تعليماً يفتح لهم الأبواب في كل مكان في العالم، مع اعتزازهم بهويتهم. نستثمر في معلمين متميزين ومرافق حديثة وآمنة وشراكة حقيقية مع كل أسرة. وحين تختار منار الباطن فأنت تنضم إلى مجتمع يؤمن بطفلك كما تؤمن به أنت.',
+    },
+  },
+
   principalMessage: {
     name: { en: 'Mr. Saud Al Otaibi', ar: 'الأستاذ سعود العتيبي' },
-    role: { en: 'Principal & Chairman', ar: 'مدير عام المدرسة' },
+    role: { en: 'School Principal', ar: 'مدير المدرسة' },
     photo: 'assets/images/principal.jpg',
     quote: {
       en: 'Every child who walks through our gates carries a future worth believing in.',

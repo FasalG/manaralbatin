@@ -23,4 +23,5 @@ export class AboutPage {
   protected readonly school = computed(() => this.c().school);
   protected readonly stats = computed(() => this.c().stats);
   protected readonly principal = computed(() => this.c().principalMessage);
+  protected readonly director = computed(() => this.c().directorMessage);
 }

@@ -117,22 +117,42 @@
   </div>
 </section>
 
-<!-- ===================== PRINCIPAL ===================== -->
+<!-- ===================== LEADERSHIP ===================== -->
 <section class="section">
-  <div class="shell principal">
-    <div class="principal__photo" appReveal>
-      <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="460" height="560" />
-      <div class="principal__badge"><app-icon name="graduation" [size]="20" /></div>
-    </div>
-    <div class="principal__copy" appReveal [revealDelay]="120">
-      <span class="eyebrow">{{ i18n.t('home.principal.eyebrow') }}</span>
-      <blockquote>“{{ i18n.pick(principal().quote) }}”</blockquote>
-      <p>{{ i18n.pick(principal().body) }}</p>
-      <div class="principal__sign">
-        <strong>{{ i18n.pick(principal().name) }}</strong>
-        <span>{{ i18n.pick(principal().role) }}</span>
+  <div class="shell leaders">
+    <!-- Director -->
+    <article class="principal" appReveal>
+      <div class="principal__photo">
+        <img [appImg]="director().photo" [alt]="i18n.pick(director().name)" width="460" height="560" />
+        <div class="principal__badge"><app-icon name="star" [size]="20" /></div>
       </div>
-    </div>
+      <div class="principal__copy">
+        <span class="eyebrow">{{ i18n.pick({ en: 'A word from our director', ar: 'كلمة المدير العام' }) }}</span>
+        <blockquote>“{{ i18n.pick(director().quote) }}”</blockquote>
+        <p>{{ i18n.pick(director().body) }}</p>
+        <div class="principal__sign">
+          <strong>{{ i18n.pick(director().name) }}</strong>
+          <span>{{ i18n.pick(director().role) }}</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Principal (image on the opposite side) -->
+    <article class="principal principal--rev" appReveal>
+      <div class="principal__photo">
+        <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="460" height="560" />
+        <div class="principal__badge"><app-icon name="graduation" [size]="20" /></div>
+      </div>
+      <div class="principal__copy">
+        <span class="eyebrow">{{ i18n.t('home.principal.eyebrow') }}</span>
+        <blockquote>“{{ i18n.pick(principal().quote) }}”</blockquote>
+        <p>{{ i18n.pick(principal().body) }}</p>
+        <div class="principal__sign">
+          <strong>{{ i18n.pick(principal().name) }}</strong>
+          <span>{{ i18n.pick(principal().role) }}</span>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 

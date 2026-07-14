@@ -8,14 +8,20 @@ import { FirebaseDataService } from '../../../core/services/firebase-data.servic
 import { RegistrationService } from '../../../core/services/registration.service';
 import { StorageService } from '../../../core/services/storage.service';
 import { IconComponent } from '../../../shared/components/icon/icon';
-import { RegistrationEnquiry, ResourceItem, SiteContent } from '../../../core/models/content.model';
+import { AdminI18nField } from './i18n-field';
+import {
+  Accreditation, CalendarEvent, FacultyMember, Feature, FeeRow, GalleryImage,
+  LocalizedText, RegistrationEnquiry, Requirement, ResourceItem, SiteContent,
+} from '../../../core/models/content.model';
 
 type Tab = 'content' | 'enquiries';
+
+const blankText = (): LocalizedText => ({ en: '', ar: '' });
 
 @Component({
   selector: 'app-admin-dashboard',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, IconComponent],
+  imports: [FormsModule, IconComponent, AdminI18nField],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -54,25 +60,91 @@ export class AdminDashboardPage {
     this.cdr.markForCheck();
   }
 
-  protected async onImage(event: Event, apply: (url: string) => void): Promise<void> {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
-    const url = await this.storage.upload(file, 'site');
-    apply(url);
-    this.cdr.markForCheck();
+  readonly uploading = signal<string | null>(null);
+
+  /** Bilingual label helper for the editor UI. */
+  protected pick(en: string, ar: string): string {
+    return this.i18n.pick({ en, ar });
   }
 
+  /** Uploads a picked file (auto-compressed) and returns its URL, or null. */
+  private async uploadPicked(event: Event, folder: string, key: string): Promise<string | null> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return null;
+    this.uploading.set(key);
+    try {
+      return await this.storage.upload(file, folder);
+    } finally {
+      this.uploading.set(null);
+      input.value = '';
+      this.cdr.markForCheck();
+    }
+  }
+
+  protected async onImage(event: Event, apply: (url: string) => void): Promise<void> {
+    const url = await this.uploadPicked(event, 'site', 'single');
+    if (url) { apply(url); this.cdr.markForCheck(); }
+  }
+
+  protected setLogoImage = (url: string) => { this.draft.school.logoUrl = url; };
   protected setHeroImage = (url: string) => { this.draft.hero.image = url; };
   protected setPrincipalImage = (url: string) => { this.draft.principalMessage.photo = url; };
+  protected setDirectorImage = (url: string) => { this.draft.directorMessage.photo = url; };
+
+  protected async onFacilityImage(event: Event, item: { image: string; slug: string }): Promise<void> {
+    const url = await this.uploadPicked(event, 'facilities', 'fac-' + item.slug);
+    if (url) { item.image = url; this.cdr.markForCheck(); }
+  }
+
+  protected async onGalleryImage(event: Event, item: { src: string }, i: number): Promise<void> {
+    const url = await this.uploadPicked(event, 'gallery', 'gal-' + i);
+    if (url) { item.src = url; this.cdr.markForCheck(); }
+  }
+
+  protected async onFacultyImage(event: Event, item: { photo: string }, i: number): Promise<void> {
+    const url = await this.uploadPicked(event, 'faculty', 'fac-m-' + i);
+    if (url) { item.photo = url; this.cdr.markForCheck(); }
+  }
 
   /** Uploads a downloadable document (brochure, calendar, PDF…) for a resource. */
   protected async onResourceFile(event: Event, resource: ResourceItem): Promise<void> {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
-    resource.fileUrl = await this.storage.upload(file, 'resources');
+    const url = await this.uploadPicked(event, 'resources', 'res');
+    if (url) { resource.fileUrl = url; this.cdr.markForCheck(); }
+  }
+
+  // ---- Add / remove list items ----
+  protected removeAt<T>(list: T[], i: number): void {
+    list.splice(i, 1);
     this.cdr.markForCheck();
+  }
+
+  protected addFeature(): void {
+    this.draft.features.push({ icon: 'star', title: blankText(), text: blankText() } as Feature);
+  }
+  protected addAccreditation(): void {
+    this.draft.accreditations.push({ name: blankText(), note: blankText(), logo: '' } as Accreditation);
+  }
+  protected addFaculty(): void {
+    this.draft.faculty.push({ name: blankText(), role: blankText(), subject: blankText(), photo: '' } as FacultyMember);
+  }
+  protected addGallery(): void {
+    this.draft.gallery.push({ src: '', caption: blankText(), category: 'campus' } as GalleryImage);
+  }
+  protected addCalendar(): void {
+    this.draft.calendar.push({ date: blankText(), title: blankText(), type: 'event' } as CalendarEvent);
+  }
+  protected addFee(): void {
+    this.draft.fees.push({ grade: blankText(), tuition: '', registration: '', note: blankText() } as FeeRow);
+  }
+  protected addRequirement(): void {
+    this.draft.requirements.push({ text: blankText() } as Requirement);
+  }
+  protected addValue(): void {
+    this.draft.aim.values.push({ title: blankText(), text: blankText() });
+  }
+  protected addResource(): void {
+    this.draft.resources.push({ icon: 'download', title: blankText(), description: blankText(), fileUrl: '', fileLabel: 'PDF' } as ResourceItem);
   }
 
   protected async save(): Promise<void> {

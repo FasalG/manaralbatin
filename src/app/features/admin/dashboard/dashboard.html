@@ -28,106 +28,342 @@
 
     @if (tab() === 'content') {
       <div class="editor">
-        <!-- School info -->
-        <fieldset class="block">
-          <legend>{{ i18n.pick({ en: 'School details', ar: 'بيانات المدرسة' }) }}</legend>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Phone', ar: 'الهاتف' }) }}<input dir="ltr" [(ngModel)]="draft.school.phone" /></label>
-            <label>{{ i18n.pick({ en: 'Email', ar: 'البريد' }) }}<input dir="ltr" [(ngModel)]="draft.school.email" /></label>
-            <label>WhatsApp<input dir="ltr" [(ngModel)]="draft.school.whatsapp" /></label>
-          </div>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Address (EN)', ar: 'العنوان (إنجليزي)' }) }}<input [(ngModel)]="draft.school.address.en" /></label>
-            <label>{{ i18n.pick({ en: 'Address (AR)', ar: 'العنوان (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.school.address.ar" /></label>
-          </div>
-        </fieldset>
+        <p class="editor__note">{{ i18n.pick({ en: 'Edit any text in English and Arabic. Images are auto-compressed to under 1 MB. Click Save & publish to make changes live.', ar: 'حرّر أي نص بالإنجليزية والعربية. تُضغط الصور تلقائياً لأقل من 1 ميجابايت. اضغط حفظ ونشر لتظهر التغييرات.' }) }}</p>
 
-        <!-- Hero -->
-        <fieldset class="block">
-          <legend>{{ i18n.pick({ en: 'Home hero', ar: 'واجهة الرئيسية' }) }}</legend>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Title (EN)', ar: 'العنوان (إنجليزي)' }) }}<input [(ngModel)]="draft.hero.title.en" /></label>
-            <label>{{ i18n.pick({ en: 'Title (AR)', ar: 'العنوان (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.hero.title.ar" /></label>
-          </div>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Highlight (EN)', ar: 'الكلمة المميّزة (إنجليزي)' }) }}<input [(ngModel)]="draft.hero.highlight.en" /></label>
-            <label>{{ i18n.pick({ en: 'Highlight (AR)', ar: 'الكلمة المميّزة (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.hero.highlight.ar" /></label>
-          </div>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Subtitle (EN)', ar: 'الوصف (إنجليزي)' }) }}<textarea rows="2" [(ngModel)]="draft.hero.subtitle.en"></textarea></label>
-            <label>{{ i18n.pick({ en: 'Subtitle (AR)', ar: 'الوصف (عربي)' }) }}<textarea dir="rtl" rows="2" [(ngModel)]="draft.hero.subtitle.ar"></textarea></label>
-          </div>
-          <div class="row row--img">
-            <label class="uploader">
-              {{ i18n.pick({ en: 'Hero image', ar: 'صورة الواجهة' }) }}
-              <input type="file" accept="image/*" (change)="onImage($event, setHeroImage)" />
-            </label>
-            <img class="preview" [src]="draft.hero.image" alt="" />
-          </div>
-        </fieldset>
-
-        <!-- Stats -->
-        <fieldset class="block">
-          <legend>{{ i18n.pick({ en: 'Highlight numbers', ar: 'الأرقام البارزة' }) }}</legend>
-          @for (s of draft.stats; track $index) {
-            <div class="row row--stat">
-              <label>{{ i18n.pick({ en: 'Value', ar: 'القيمة' }) }}<input type="number" [(ngModel)]="s.value" /></label>
-              <label>{{ i18n.pick({ en: 'Suffix', ar: 'اللاحقة' }) }}<input [(ngModel)]="s.suffix" /></label>
-              <label>{{ i18n.pick({ en: 'Label (EN)', ar: 'التسمية (إنجليزي)' }) }}<input [(ngModel)]="s.label.en" /></label>
-              <label>{{ i18n.pick({ en: 'Label (AR)', ar: 'التسمية (عربي)' }) }}<input dir="rtl" [(ngModel)]="s.label.ar" /></label>
-            </div>
-          }
-        </fieldset>
-
-        <!-- Principal -->
-        <fieldset class="block">
-          <legend>{{ i18n.pick({ en: 'Principal message', ar: 'كلمة المدير' }) }}</legend>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Name (EN)', ar: 'الاسم (إنجليزي)' }) }}<input [(ngModel)]="draft.principalMessage.name.en" /></label>
-            <label>{{ i18n.pick({ en: 'Name (AR)', ar: 'الاسم (عربي)' }) }}<input dir="rtl" [(ngModel)]="draft.principalMessage.name.ar" /></label>
-          </div>
-          <div class="row">
-            <label>{{ i18n.pick({ en: 'Message (EN)', ar: 'الكلمة (إنجليزي)' }) }}<textarea rows="3" [(ngModel)]="draft.principalMessage.body.en"></textarea></label>
-            <label>{{ i18n.pick({ en: 'Message (AR)', ar: 'الكلمة (عربي)' }) }}<textarea dir="rtl" rows="3" [(ngModel)]="draft.principalMessage.body.ar"></textarea></label>
-          </div>
-          <div class="row row--img">
-            <label class="uploader">
-              {{ i18n.pick({ en: 'Principal photo', ar: 'صورة المدير' }) }}
-              <input type="file" accept="image/*" (change)="onImage($event, setPrincipalImage)" />
-            </label>
-            <img class="preview preview--portrait" [src]="draft.principalMessage.photo" alt="" />
-          </div>
-        </fieldset>
-
-        <!-- Downloads / Resources -->
-        <fieldset class="block">
-          <legend>{{ i18n.pick({ en: 'Downloads (brochure, calendar…)', ar: 'التحميلات (المطوية، التقويم…)' }) }}</legend>
-          @for (r of draft.resources; track $index) {
-            <div class="resource">
-              <div class="row">
-                <label>{{ i18n.pick({ en: 'Title (EN)', ar: 'العنوان (إنجليزي)' }) }}<input [(ngModel)]="r.title.en" /></label>
-                <label>{{ i18n.pick({ en: 'Title (AR)', ar: 'العنوان (عربي)' }) }}<input dir="rtl" [(ngModel)]="r.title.ar" /></label>
+        <!-- ============ SCHOOL DETAILS ============ -->
+        <details class="block" open>
+          <summary>{{ i18n.pick({ en: 'School details', ar: 'بيانات المدرسة' }) }}</summary>
+          <div class="block__body">
+            <div class="uprow">
+              <div class="logo-preview">
+                @if (draft.school.logoUrl) { <img [src]="draft.school.logoUrl" alt="logo" /> }
+                @else { <span class="logo-preview__none">{{ pick('Using default crest','الشعار الافتراضي') }}</span> }
               </div>
-              <div class="row row--img">
-                <label class="uploader">
-                  {{ i18n.pick({ en: 'File (PDF)', ar: 'الملف (PDF)' }) }}
-                  <input type="file" accept="application/pdf,image/*" (change)="onResourceFile($event, r)" />
-                </label>
-                @if (r.fileUrl) {
-                  <a class="filelink" [href]="r.fileUrl" target="_blank" rel="noopener"><app-icon name="check" [size]="15" /> {{ i18n.pick({ en: 'File attached', ar: 'الملف مرفق' }) }}</a>
-                } @else {
-                  <span class="filelink filelink--none">{{ i18n.pick({ en: 'No file yet', ar: 'لا يوجد ملف' }) }}</span>
-                }
-              </div>
+              <label class="uploader">{{ pick('Website logo (PNG/SVG)','شعار الموقع') }}<input type="file" accept="image/*" (change)="onImage($event, setLogoImage)" /></label>
+              @if (draft.school.logoUrl) {
+                <button type="button" class="del" (click)="draft.school.logoUrl = ''">{{ pick('Remove logo','إزالة الشعار') }}</button>
+              }
             </div>
-          }
-        </fieldset>
+            <app-i18n-field [label]="pick('School name','اسم المدرسة')" [value]="draft.school.name" />
+            <app-i18n-field [label]="pick('Short name','الاسم المختصر')" [value]="draft.school.shortName" />
+            <app-i18n-field [label]="pick('Tagline','الشعار')" [value]="draft.school.tagline" />
+            <app-i18n-field [label]="pick('Curriculum','المنهج')" [value]="draft.school.curriculum" />
+            <app-i18n-field [label]="pick('Address','العنوان')" [value]="draft.school.address" />
+            <div class="row">
+              <label class="fld">{{ pick('Established','سنة التأسيس') }}<input [(ngModel)]="draft.school.established" /></label>
+              <label class="fld">{{ pick('Phone','الهاتف') }}<input dir="ltr" [(ngModel)]="draft.school.phone" /></label>
+              <label class="fld">WhatsApp<input dir="ltr" [(ngModel)]="draft.school.whatsapp" /></label>
+            </div>
+            <div class="row">
+              <label class="fld">{{ pick('Email','البريد') }}<input dir="ltr" [(ngModel)]="draft.school.email" /></label>
+              <label class="fld">{{ pick('Map link','رابط الخريطة') }}<input dir="ltr" [(ngModel)]="draft.school.mapUrl" /></label>
+            </div>
+            <div class="row">
+              <label class="fld">Facebook<input dir="ltr" [(ngModel)]="draft.school.social.facebook" /></label>
+              <label class="fld">Instagram<input dir="ltr" [(ngModel)]="draft.school.social.instagram" /></label>
+              <label class="fld">YouTube<input dir="ltr" [(ngModel)]="draft.school.social.youtube" /></label>
+            </div>
+          </div>
+        </details>
+
+        <!-- ============ HOME HERO ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Home hero', ar: 'واجهة الرئيسية' }) }}</summary>
+          <div class="block__body">
+            <app-i18n-field [label]="pick('Badge','الشارة')" [value]="draft.hero.badge" />
+            <app-i18n-field [label]="pick('Title','العنوان')" [value]="draft.hero.title" />
+            <app-i18n-field [label]="pick('Highlighted word','الكلمة المميّزة')" [value]="draft.hero.highlight" />
+            <app-i18n-field [label]="pick('Subtitle','الوصف')" [value]="draft.hero.subtitle" [multiline]="true" />
+            <app-i18n-field [label]="pick('Primary button','الزر الرئيسي')" [value]="draft.hero.primaryCta.label" />
+            <app-i18n-field [label]="pick('Secondary button','الزر الثانوي')" [value]="draft.hero.secondaryCta.label" />
+            <div class="uprow">
+              <img class="preview" [src]="draft.hero.image" alt="" />
+              <label class="uploader">{{ pick('Hero image','صورة الواجهة') }}<input type="file" accept="image/*" (change)="onImage($event, setHeroImage)" /></label>
+            </div>
+          </div>
+        </details>
+
+        <!-- ============ STATS ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Highlight numbers', ar: 'الأرقام البارزة' }) }}</summary>
+          <div class="block__body">
+            @for (s of draft.stats; track $index) {
+              <div class="list__item">
+                <div class="row row--stat">
+                  <label class="fld">{{ pick('Value','القيمة') }}<input type="number" [(ngModel)]="s.value" /></label>
+                  <label class="fld">{{ pick('Suffix','اللاحقة') }}<input [(ngModel)]="s.suffix" /></label>
+                </div>
+                <app-i18n-field [label]="pick('Label','التسمية')" [value]="s.label" />
+              </div>
+            }
+          </div>
+        </details>
+
+        <!-- ============ FEATURES ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Why choose us (features)', ar: 'لماذا تختارنا (المميزات)' }) }}</summary>
+          <div class="block__body">
+            @for (f of draft.features; track $index) {
+              <div class="list__item">
+                <div class="item-head">
+                  <label class="fld fld--icon">{{ pick('Icon','الأيقونة') }}<input [(ngModel)]="f.icon" /></label>
+                  <button type="button" class="del" (click)="removeAt(draft.features, $index)"><app-icon name="check" [size]="14" /> {{ pick('Remove','حذف') }}</button>
+                </div>
+                <app-i18n-field [label]="pick('Title','العنوان')" [value]="f.title" />
+                <app-i18n-field [label]="pick('Text','النص')" [value]="f.text" [multiline]="true" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addFeature()">+ {{ pick('Add feature','إضافة ميزة') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ FACILITIES ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Facilities', ar: 'المرافق' }) }}</summary>
+          <div class="block__body">
+            @for (f of draft.facilities; track f.slug) {
+              <div class="list__item">
+                <div class="item-head"><strong>{{ f.slug }}</strong></div>
+                <app-i18n-field [label]="pick('Title','العنوان')" [value]="f.title" />
+                <app-i18n-field [label]="pick('Summary','ملخص')" [value]="f.summary" />
+                <app-i18n-field [label]="pick('Full description','الوصف الكامل')" [value]="f.body" [multiline]="true" />
+                <div class="uprow">
+                  <img class="preview" [src]="f.image" alt="" />
+                  <label class="uploader">{{ pick('Photo','الصورة') }}<input type="file" accept="image/*" (change)="onFacilityImage($event, f)" /></label>
+                </div>
+              </div>
+            }
+          </div>
+        </details>
+
+        <!-- ============ ACCREDITATIONS ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Accreditations', ar: 'الاعتمادات' }) }}</summary>
+          <div class="block__body">
+            @for (a of draft.accreditations; track $index) {
+              <div class="list__item">
+                <div class="item-head"><button type="button" class="del" (click)="removeAt(draft.accreditations, $index)">{{ pick('Remove','حذف') }}</button></div>
+                <app-i18n-field [label]="pick('Name','الاسم')" [value]="a.name" />
+                <app-i18n-field [label]="pick('Note','ملاحظة')" [value]="a.note" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addAccreditation()">+ {{ pick('Add accreditation','إضافة اعتماد') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ DIRECTOR ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Director message', ar: 'كلمة المدير العام' }) }}</summary>
+          <div class="block__body">
+            <app-i18n-field [label]="pick('Name','الاسم')" [value]="draft.directorMessage.name" />
+            <app-i18n-field [label]="pick('Role','المنصب')" [value]="draft.directorMessage.role" />
+            <app-i18n-field [label]="pick('Quote','الاقتباس')" [value]="draft.directorMessage.quote" [multiline]="true" />
+            <app-i18n-field [label]="pick('Message','الكلمة')" [value]="draft.directorMessage.body" [multiline]="true" />
+            <div class="uprow">
+              <img class="preview preview--portrait" [src]="draft.directorMessage.photo" alt="" />
+              <label class="uploader">{{ pick('Photo','الصورة') }}<input type="file" accept="image/*" (change)="onImage($event, setDirectorImage)" /></label>
+            </div>
+          </div>
+        </details>
+
+        <!-- ============ PRINCIPAL ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Principal message', ar: 'كلمة مدير المدرسة' }) }}</summary>
+          <div class="block__body">
+            <app-i18n-field [label]="pick('Name','الاسم')" [value]="draft.principalMessage.name" />
+            <app-i18n-field [label]="pick('Role','المنصب')" [value]="draft.principalMessage.role" />
+            <app-i18n-field [label]="pick('Quote','الاقتباس')" [value]="draft.principalMessage.quote" [multiline]="true" />
+            <app-i18n-field [label]="pick('Message','الكلمة')" [value]="draft.principalMessage.body" [multiline]="true" />
+            <div class="uprow">
+              <img class="preview preview--portrait" [src]="draft.principalMessage.photo" alt="" />
+              <label class="uploader">{{ pick('Photo','الصورة') }}<input type="file" accept="image/*" (change)="onImage($event, setPrincipalImage)" /></label>
+            </div>
+          </div>
+        </details>
+
+        <!-- ============ FACULTY ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Faculty', ar: 'هيئة التدريس' }) }}</summary>
+          <div class="block__body">
+            @for (m of draft.faculty; track $index) {
+              <div class="list__item">
+                <div class="item-head"><button type="button" class="del" (click)="removeAt(draft.faculty, $index)">{{ pick('Remove','حذف') }}</button></div>
+                <div class="uprow">
+                  <img class="preview preview--portrait" [src]="m.photo" alt="" />
+                  <label class="uploader">{{ pick('Photo','الصورة') }}<input type="file" accept="image/*" (change)="onFacultyImage($event, m, $index)" /></label>
+                </div>
+                <app-i18n-field [label]="pick('Name','الاسم')" [value]="m.name" />
+                <app-i18n-field [label]="pick('Role','المنصب')" [value]="m.role" />
+                <app-i18n-field [label]="pick('Subject','المادة')" [value]="m.subject" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addFaculty()">+ {{ pick('Add member','إضافة عضو') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ GALLERY ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Gallery', ar: 'المعرض' }) }}</summary>
+          <div class="block__body">
+            @for (g of draft.gallery; track $index) {
+              <div class="list__item">
+                <div class="item-head">
+                  <label class="fld fld--icon">{{ pick('Category','التصنيف') }}
+                    <select [(ngModel)]="g.category">
+                      <option value="campus">Campus</option>
+                      <option value="classroom">Classroom</option>
+                      <option value="activities">Activities</option>
+                      <option value="events">Events</option>
+                    </select>
+                  </label>
+                  <button type="button" class="del" (click)="removeAt(draft.gallery, $index)">{{ pick('Remove','حذف') }}</button>
+                </div>
+                <div class="uprow">
+                  <img class="preview" [src]="g.src" alt="" />
+                  <label class="uploader">{{ pick('Photo','الصورة') }}<input type="file" accept="image/*" (change)="onGalleryImage($event, g, $index)" /></label>
+                </div>
+                <app-i18n-field [label]="pick('Caption','التعليق')" [value]="g.caption" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addGallery()">+ {{ pick('Add photo','إضافة صورة') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ GRADES ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Academic grades (KG1–G9)', ar: 'الصفوف الدراسية' }) }}</summary>
+          <div class="block__body">
+            @for (g of draft.grades; track g.code) {
+              <div class="list__item">
+                <div class="row row--stat">
+                  <label class="fld">{{ pick('Code','الرمز') }}<input [(ngModel)]="g.code" /></label>
+                  <label class="fld">{{ pick('Ages','الأعمار') }}<input [(ngModel)]="g.ageRange" /></label>
+                </div>
+                <app-i18n-field [label]="pick('Name','الاسم')" [value]="g.name" />
+                <app-i18n-field [label]="pick('Focus','التركيز')" [value]="g.focus" />
+              </div>
+            }
+          </div>
+        </details>
+
+        <!-- ============ CALENDAR ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Academic calendar', ar: 'التقويم الدراسي' }) }}</summary>
+          <div class="block__body">
+            @for (e of draft.calendar; track $index) {
+              <div class="list__item">
+                <div class="item-head">
+                  <label class="fld fld--icon">{{ pick('Type','النوع') }}
+                    <select [(ngModel)]="e.type">
+                      <option value="term">Term</option>
+                      <option value="holiday">Holiday</option>
+                      <option value="exam">Exam</option>
+                      <option value="event">Event</option>
+                    </select>
+                  </label>
+                  <button type="button" class="del" (click)="removeAt(draft.calendar, $index)">{{ pick('Remove','حذف') }}</button>
+                </div>
+                <app-i18n-field [label]="pick('Date','التاريخ')" [value]="e.date" />
+                <app-i18n-field [label]="pick('Title','العنوان')" [value]="e.title" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addCalendar()">+ {{ pick('Add event','إضافة حدث') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ FEES ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Fee structure', ar: 'الرسوم الدراسية' }) }}</summary>
+          <div class="block__body">
+            @for (f of draft.fees; track $index) {
+              <div class="list__item">
+                <div class="item-head"><button type="button" class="del" (click)="removeAt(draft.fees, $index)">{{ pick('Remove','حذف') }}</button></div>
+                <app-i18n-field [label]="pick('Stage','المرحلة')" [value]="f.grade" />
+                <div class="row row--stat">
+                  <label class="fld">{{ pick('Tuition','الرسوم') }}<input [(ngModel)]="f.tuition" /></label>
+                  <label class="fld">{{ pick('Registration','التسجيل') }}<input [(ngModel)]="f.registration" /></label>
+                </div>
+                <app-i18n-field [label]="pick('Note','ملاحظة')" [value]="f.note" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addFee()">+ {{ pick('Add row','إضافة صف') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ REQUIREMENTS ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Registration requirements', ar: 'متطلبات التسجيل' }) }}</summary>
+          <div class="block__body">
+            @for (r of draft.requirements; track $index) {
+              <div class="list__item list__item--row">
+                <app-i18n-field [value]="r.text" />
+                <button type="button" class="del" (click)="removeAt(draft.requirements, $index)">{{ pick('Remove','حذف') }}</button>
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addRequirement()">+ {{ pick('Add requirement','إضافة متطلب') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ AIM ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Mission, vision & values', ar: 'الرسالة والرؤية والقيم' }) }}</summary>
+          <div class="block__body">
+            <app-i18n-field [label]="pick('Mission','الرسالة')" [value]="draft.aim.mission" [multiline]="true" />
+            <app-i18n-field [label]="pick('Vision','الرؤية')" [value]="draft.aim.vision" [multiline]="true" />
+            @for (v of draft.aim.values; track $index) {
+              <div class="list__item">
+                <div class="item-head"><button type="button" class="del" (click)="removeAt(draft.aim.values, $index)">{{ pick('Remove','حذف') }}</button></div>
+                <app-i18n-field [label]="pick('Value title','عنوان القيمة')" [value]="v.title" />
+                <app-i18n-field [label]="pick('Value text','نص القيمة')" [value]="v.text" />
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addValue()">+ {{ pick('Add value','إضافة قيمة') }}</button>
+          </div>
+        </details>
+
+        <!-- ============ ABOUT ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'About page', ar: 'صفحة من نحن' }) }}</summary>
+          <div class="block__body">
+            <app-i18n-field [label]="pick('Our story','قصتنا')" [value]="draft.about.story" [multiline]="true" />
+            @for (p of draft.about.pillars; track $index) {
+              <div class="list__item">
+                <app-i18n-field [label]="pick('Pillar title','عنوان الركيزة')" [value]="p.title" />
+                <app-i18n-field [label]="pick('Pillar text','نص الركيزة')" [value]="p.text" />
+              </div>
+            }
+          </div>
+        </details>
+
+        <!-- ============ DOWNLOADS ============ -->
+        <details class="block">
+          <summary>{{ i18n.pick({ en: 'Downloads (brochure, calendar…)', ar: 'التحميلات (المطوية، التقويم…)' }) }}</summary>
+          <div class="block__body">
+            @for (r of draft.resources; track $index) {
+              <div class="list__item">
+                <div class="item-head">
+                  <label class="fld fld--icon">{{ pick('Icon','الأيقونة') }}<input [(ngModel)]="r.icon" /></label>
+                  <button type="button" class="del" (click)="removeAt(draft.resources, $index)">{{ pick('Remove','حذف') }}</button>
+                </div>
+                <app-i18n-field [label]="pick('Title','العنوان')" [value]="r.title" />
+                <app-i18n-field [label]="pick('Description','الوصف')" [value]="r.description" />
+                <div class="uprow">
+                  @if (r.fileUrl) { <a class="filelink" [href]="r.fileUrl" target="_blank" rel="noopener"><app-icon name="check" [size]="15" /> {{ pick('File attached','الملف مرفق') }}</a> }
+                  @else { <span class="filelink filelink--none">{{ pick('No file yet','لا يوجد ملف') }}</span> }
+                  <label class="uploader">{{ pick('File (PDF)','الملف (PDF)') }}<input type="file" accept="application/pdf,image/*" (change)="onResourceFile($event, r)" /></label>
+                </div>
+              </div>
+            }
+            <button type="button" class="add-btn" (click)="addResource()">+ {{ pick('Add download','إضافة ملف') }}</button>
+          </div>
+        </details>
 
         <div class="savebar">
-          <button type="button" class="btn btn--gold" (click)="save()" [disabled]="saving()">
+          <button type="button" class="btn btn--gold" (click)="save()" [disabled]="saving() || !!uploading()">
             @if (saving()) { {{ i18n.t('form.sending') }} } @else { <app-icon name="check" [size]="18" /> {{ i18n.pick({ en: 'Save & publish', ar: 'حفظ ونشر' }) }} }
           </button>
           <button type="button" class="btn btn--ghost btn--sm" (click)="resetDraft()">{{ i18n.pick({ en: 'Reset to default', ar: 'استعادة الافتراضي' }) }}</button>
+          @if (uploading()) { <span class="savebar__msg">{{ i18n.pick({ en: 'Uploading & compressing image…', ar: 'جارٍ الرفع والضغط…' }) }}</span> }
           @if (savedMsg()) { <span class="savebar__msg">{{ savedMsg() }}</span> }
         </div>
       </div>

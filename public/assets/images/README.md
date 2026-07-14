@@ -5,6 +5,7 @@ present, the site shows a branded placeholder automatically — nothing breaks.
 
 ## Home & about
 - `students-group.jpg` — hero photo (the 5 students). Portrait/tall works best.
+- `director.jpg` — the director / chairman's portrait.
 - `principal.jpg` — the principal's portrait.
 
 ## Facilities (landscape ~16:11)
