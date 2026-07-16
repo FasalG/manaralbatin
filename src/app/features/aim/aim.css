@@ -8,8 +8,8 @@
   border-radius: var(--r-lg);
   color: #fff;
 }
-.mv__card--mission { background: linear-gradient(140deg, var(--royal-deep), var(--royal)); }
-.mv__card--vision { background: linear-gradient(140deg, var(--green-deep), var(--green)); }
+.mv__card--mission { background: linear-gradient(140deg, var(--joy-sky), var(--joy-grape)); }
+.mv__card--vision { background: linear-gradient(140deg, var(--joy-mint), var(--green-deep)); }
 .mv__ico {
   display: grid; place-items: center; width: 60px; height: 60px; border-radius: 18px;
   background: rgba(255, 255, 255, 0.16); color: #fff; margin-bottom: 1.2rem;
@@ -18,10 +18,22 @@
 .mv__card p { color: rgba(255, 255, 255, 0.9); font-size: 1.08rem; margin: 0; }
 
 .values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
-.value { padding: 1.8rem; }
+.value {
+  --tint: var(--joy-sky);
+  padding: 1.8rem;
+  border: 2px dashed color-mix(in srgb, var(--tint) 42%, transparent);
+  border-radius: var(--r-lg);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.value:nth-child(4n + 2) { --tint: var(--joy-grape); }
+.value:nth-child(4n + 3) { --tint: var(--joy-mint); }
+.value:nth-child(4n + 4) { --tint: var(--joy-coral); }
+.value:hover { transform: translateY(-6px) rotate(-0.6deg); box-shadow: var(--shadow-md); }
+.value:hover .value__ico { transform: rotate(-8deg) scale(1.08); }
 .value__ico {
-  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px;
-  background: color-mix(in srgb, var(--gold) 22%, transparent); color: var(--gold-deep); margin-bottom: 1rem;
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px;
+  background: color-mix(in srgb, var(--tint) 16%, transparent); color: var(--tint); margin-bottom: 1rem;
+  transition: transform 0.3s var(--ease);
 }
 .value h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
 .value p { color: var(--ink-soft); margin: 0; font-size: 0.95rem; }

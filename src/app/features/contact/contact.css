@@ -1,23 +1,25 @@
 :host { display: block; }
 
 .contact__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-bottom: 1.4rem; }
-.ccard { padding: 1.6rem; display: flex; flex-direction: column; gap: 0.3rem; transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
-.ccard:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.ccard__ico { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: color-mix(in srgb, var(--royal) 12%, transparent); color: var(--royal); margin-bottom: 0.6rem; }
-.ccard__ico--green { background: color-mix(in srgb, var(--green) 16%, transparent); color: var(--green-deep); }
-.ccard__ico--gold { background: color-mix(in srgb, var(--gold) 22%, transparent); color: var(--gold-deep); }
+.ccard { padding: 1.6rem; display: flex; flex-direction: column; gap: 0.3rem; border: 2px dashed color-mix(in srgb, var(--joy-sky) 42%, transparent); border-radius: var(--r-lg); transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.ccard:nth-child(2) { border-color: color-mix(in srgb, var(--joy-mint) 42%, transparent); }
+.ccard:nth-child(3) { border-color: color-mix(in srgb, var(--orange) 42%, transparent); }
+.ccard:hover { transform: translateY(-6px) rotate(-0.6deg); box-shadow: var(--shadow-md); }
+.ccard__ico { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: color-mix(in srgb, var(--joy-sky) 16%, transparent); color: var(--joy-sky); margin-bottom: 0.6rem; }
+.ccard__ico--green { background: color-mix(in srgb, var(--joy-mint) 18%, transparent); color: var(--green-deep); }
+.ccard__ico--gold { background: color-mix(in srgb, var(--orange) 18%, transparent); color: var(--orange); }
 .ccard strong { font-family: var(--font-display); font-size: 1.1rem; }
 .ccard span { color: var(--ink-soft); font-weight: 600; }
 
-.contact__panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; overflow: hidden; }
+.contact__panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; overflow: hidden; border-radius: var(--r-xl); }
 .contact__info { padding: clamp(1.6rem, 4vw, 2.6rem); }
 .contact__info h2 { font-size: 1.6rem; }
 .contact__addr, .contact__hours { display: flex; gap: 0.6rem; align-items: flex-start; color: var(--ink-soft); }
-.contact__addr app-icon, .contact__hours app-icon { color: var(--green-deep); flex: none; margin-top: 2px; }
+.contact__addr app-icon, .contact__hours app-icon { color: var(--orange); flex: none; margin-top: 2px; }
 .contact__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 1.4rem; }
 .contact__map {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem;
-  background: linear-gradient(140deg, var(--royal-deep), var(--green-deep)); color: #fff; min-height: 260px;
+  background: var(--orange); color: #fff; min-height: 260px;
   text-align: center; font-weight: 600;
 }
 .contact__map-pin { display: grid; place-items: center; width: 70px; height: 70px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); animation: floaty 4s ease-in-out infinite; }

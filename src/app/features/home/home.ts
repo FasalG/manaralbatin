@@ -27,4 +27,38 @@ export class HomePage {
   protected readonly accreditations = computed(() => this.c().accreditations);
   protected readonly principal = computed(() => this.c().principalMessage);
   protected readonly director = computed(() => this.c().directorMessage);
+
+  /** Director + principal rendered through one card pattern. View-model only. */
+  protected readonly leaders = computed(() => [this.director()]);
+
+  /** The "at a glance" strip — presentation-only view of existing school info. */
+  protected readonly glance = computed(() => {
+    const school = this.c().school;
+    return [
+      {
+        icon: 'cambridge',
+        tint: 'var(--joy-sky)',
+        label: { en: 'Curriculum', ar: 'المنهج' },
+        value: school.curriculum,
+      },
+      {
+        icon: 'graduation',
+        tint: 'var(--joy-grape)',
+        label: { en: 'Grades', ar: 'الصفوف' },
+        value: { en: 'KG2 – Grade 9', ar: 'روضة – الصف التاسع' },
+      },
+      {
+        icon: 'globe',
+        tint: 'var(--joy-mint)',
+        label: { en: 'Languages', ar: 'اللغات' },
+        value: { en: 'English · Arabic', ar: 'إنجليزي · عربي' },
+      },
+      {
+        icon: 'clock',
+        tint: 'var(--joy-coral)',
+        label: { en: 'Established', ar: 'التأسيس' },
+        value: { en: school.established, ar: school.established },
+      },
+    ];
+  });
 }

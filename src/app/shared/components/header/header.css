@@ -3,7 +3,7 @@
   top: 0;
   z-index: 100;
   display: block;
-  background: color-mix(in srgb, var(--sand) 82%, transparent);
+  background: var(--wash);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
   transition: background 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
@@ -73,8 +73,8 @@ html[dir='rtl'] .brand__text small { letter-spacing: 0.02em; }
   transition: color 0.2s, background 0.2s;
   white-space: nowrap;
 }
-.nav > a:hover { color: var(--royal); background: var(--mist); }
-.nav > a.is-active { color: var(--royal-deep); background: var(--mist); }
+.nav > a:hover { color: var(--orange-deep); background: color-mix(in srgb, var(--orange) 12%, transparent); }
+.nav > a.is-active { color: var(--orange-deep); background: color-mix(in srgb, var(--orange) 16%, transparent); }
 .nav__cta { display: none; }
 
 .actions { display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0; }
@@ -95,7 +95,7 @@ html[dir='rtl'] .brand__text small { letter-spacing: 0.02em; }
   font-size: 0.9rem;
   transition: border-color 0.2s, color 0.2s;
 }
-.lang:hover { border-color: var(--royal); color: var(--royal); }
+.lang:hover { border-color: var(--orange); color: var(--orange); }
 
 .burger {
   display: none;

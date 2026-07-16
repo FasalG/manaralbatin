@@ -10,7 +10,6 @@ import { LocalizedText } from '../../../core/models/content.model';
   imports: [RouterLink],
   template: `
     <header class="page-hero">
-      <div class="aurora"></div>
       <div class="shell page-hero__inner">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a routerLink="/">{{ i18n.t('nav.home') }}</a>

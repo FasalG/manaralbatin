@@ -4,16 +4,28 @@
 .story .lead { font-size: 1.12rem; color: var(--ink-soft); }
 .story__cta { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 1.4rem; }
 .story__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.mini-stat { padding: 1.4rem; text-align: center; }
-.mini-stat strong { display: block; font-family: var(--font-display); font-size: 2.1rem; color: var(--royal); line-height: 1; }
+.mini-stat { padding: 1.4rem; text-align: center; border-radius: var(--r-lg); transition: transform 0.3s var(--ease); }
+.mini-stat:hover { transform: translateY(-5px) rotate(-1deg); }
+.mini-stat strong { display: block; font-family: var(--font-display); font-size: 2.1rem; color: var(--orange); line-height: 1; }
 .mini-stat span { font-size: 0.9rem; color: var(--ink-muted); font-weight: 600; }
 
 .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-.pillar { padding: 1.9rem; }
+.pillar {
+  --tint: var(--joy-sky);
+  padding: 1.9rem;
+  border: 2px dashed color-mix(in srgb, var(--tint) 45%, transparent);
+  border-radius: var(--r-lg);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.pillar:nth-child(3n + 2) { --tint: var(--joy-grape); }
+.pillar:nth-child(3n + 3) { --tint: var(--joy-mint); }
+.pillar:hover { transform: translateY(-8px) rotate(-0.6deg); box-shadow: var(--shadow-md); }
+.pillar:hover .pillar__ico { transform: rotate(-8deg) scale(1.08); }
 .pillar__ico {
-  display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--royal) 14%, transparent), color-mix(in srgb, var(--green) 16%, transparent));
-  color: var(--royal); margin-bottom: 1rem;
+  display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px;
+  background: color-mix(in srgb, var(--tint) 16%, transparent);
+  color: var(--tint); margin-bottom: 1rem;
+  transition: transform 0.3s var(--ease);
 }
 .pillar h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
 .pillar p { color: var(--ink-soft); margin: 0; }
@@ -21,12 +33,15 @@
 .principal-quote {
   display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center;
   padding: clamp(1.6rem, 4vw, 2.6rem);
-  background: linear-gradient(135deg, var(--paper), var(--mist));
+  background: var(--wash);
+  border: 2px dashed color-mix(in srgb, var(--orange) 40%, transparent);
+  border-radius: var(--r-xl);
 }
-.principal-quote app-icon { color: var(--gold-deep); }
+.principal-quote app-icon { color: var(--orange); }
 .principal-quote__photo img {
   width: 160px; height: 190px; object-fit: cover; object-position: top center;
-  border-radius: var(--r-md); box-shadow: var(--shadow-md); background: var(--mist);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-md); background: var(--mist);
+  border: 4px solid #fff;
 }
 .principal-quote blockquote {
   font-family: var(--font-display); font-size: clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
