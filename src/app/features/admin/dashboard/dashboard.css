@@ -73,8 +73,11 @@
 .savebar__msg { color: var(--green-deep); font-weight: 600; }
 
 .enquiries { padding-bottom: 3rem; }
-.enquiries__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+.enquiries__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
 .enquiries__head p { margin: 0; font-weight: 600; color: var(--ink-soft); }
+.enquiries__head p strong { color: var(--royal); font-family: var(--font-display); font-size: 1.15rem; }
+.enquiries__total { color: var(--ink-muted); font-weight: 500; }
+.enquiries__head-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
 .enquiry { padding: 1.3rem; }
 .enquiry__top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; }
@@ -83,9 +86,44 @@
 .enquiry li { display: flex; gap: 0.5rem; align-items: center; font-size: 0.92rem; color: var(--ink-soft); }
 .enquiry li app-icon { color: var(--royal); flex: none; }
 .enquiry__msg { color: var(--ink); font-style: italic; }
-.enquiry time { display: block; margin-top: 0.8rem; font-size: 0.78rem; color: var(--ink-muted); direction: ltr; }
+.enquiry__foot { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; margin-top: 0.9rem; flex-wrap: wrap; }
+.enquiry time { font-size: 0.78rem; color: var(--ink-muted); direction: ltr; }
+.enquiry__mark {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  border: 1.5px solid var(--royal); background: transparent; color: var(--royal);
+  font-weight: 600; font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 999px;
+  transition: background 0.2s, color 0.2s;
+}
+.enquiry__mark:hover { background: var(--royal); color: #fff; }
+.enquiry__mark--undo { border-color: var(--line); color: var(--ink-muted); }
+.enquiry__mark--undo:hover { background: var(--ink-muted); color: #fff; border-color: var(--ink-muted); }
+
+/* New enquiries get a highlighted edge + "NEW" corner flag */
+.enquiry--new { position: relative; border-color: color-mix(in srgb, var(--gold) 55%, var(--line)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 18%, transparent); }
+.enquiry--new::before {
+  content: 'NEW'; position: absolute; inset-block-start: -9px; inset-inline-start: 1.1rem;
+  background: var(--gold); color: var(--ink); font-family: var(--font-display); font-weight: 700;
+  font-size: 0.66rem; letter-spacing: 0.08em; padding: 0.1rem 0.5rem; border-radius: 999px;
+}
+html[dir='rtl'] .enquiry--new::before { content: 'جديد'; }
+.enquiry--seen { opacity: 0.9; }
+
+/* Collapsible "Viewed" section */
+.viewed { margin-top: 1.4rem; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--paper); overflow: hidden; }
+.viewed > summary {
+  cursor: pointer; list-style: none; padding: 1rem 1.3rem; font-family: var(--font-display);
+  font-weight: 600; font-size: 1rem; color: var(--ink-soft); display: flex; align-items: center; gap: 0.5rem;
+}
+.viewed > summary::-webkit-details-marker { display: none; }
+.viewed > summary::after { content: '▸'; margin-inline-start: auto; color: var(--ink-muted); transition: transform 0.2s; }
+.viewed[open] > summary::after { transform: rotate(90deg); }
+.viewed > summary:hover { background: var(--mist); }
+.viewed__count { background: var(--mist); color: var(--ink-soft); font-size: 0.78rem; font-weight: 700; padding: 0.05rem 0.5rem; border-radius: 999px; }
+.viewed__cards { padding: 0 1.3rem 1.3rem; }
 
 .empty { text-align: center; padding: 3rem; color: var(--ink-muted); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.empty--clear { color: var(--green-deep); }
+.empty--clear app-icon { color: var(--green-deep); }
 
 @media (max-width: 720px) {
   .row, .row--stat, .row--img { grid-template-columns: 1fr; }

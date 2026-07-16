@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/services/i18n.service';
@@ -41,6 +41,66 @@ export class AdminDashboardPage {
   protected readonly savedMsg = signal('');
   protected readonly enquiries = signal<RegistrationEnquiry[]>([]);
   protected readonly firebaseOn = this.fb.isEnabled;
+
+  /** Keys of enquiries the admin has already opened. Persisted per-browser in
+   *  localStorage (like `mab-enquiries`) — it's admin-local read state, so it
+   *  does NOT touch the RegistrationEnquiry model or the Firestore documents. */
+  private static readonly SEEN_KEY = 'mab-enquiries-seen';
+  protected readonly seenKeys = signal<Set<string>>(this.loadSeen());
+
+  /** Stable identity for an enquiry (no id field exists on the model). */
+  protected enquiryKey(e: RegistrationEnquiry): string {
+    return `${e.submittedAt}|${e.email}|${e.studentName}`;
+  }
+
+  /** Unread enquiries — shown up top so the admin sees them first. */
+  protected readonly newEnquiries = computed(() => {
+    const seen = this.seenKeys();
+    return this.enquiries().filter((e) => !seen.has(this.enquiryKey(e)));
+  });
+
+  /** Already-viewed enquiries — tucked into the collapsible section below. */
+  protected readonly viewedEnquiries = computed(() => {
+    const seen = this.seenKeys();
+    return this.enquiries().filter((e) => seen.has(this.enquiryKey(e)));
+  });
+
+  private loadSeen(): Set<string> {
+    try {
+      return new Set<string>(JSON.parse(localStorage.getItem(AdminDashboardPage.SEEN_KEY) || '[]'));
+    } catch {
+      return new Set<string>();
+    }
+  }
+
+  private commitSeen(next: Set<string>): void {
+    this.seenKeys.set(next);
+    try {
+      localStorage.setItem(AdminDashboardPage.SEEN_KEY, JSON.stringify([...next]));
+    } catch { /* ignore quota / privacy-mode errors */ }
+    this.cdr.markForCheck();
+  }
+
+  /** Move an enquiry into the "Viewed" section. */
+  protected markSeen(e: RegistrationEnquiry): void {
+    const next = new Set(this.seenKeys());
+    next.add(this.enquiryKey(e));
+    this.commitSeen(next);
+  }
+
+  /** Bring an enquiry back up to the "New" section. */
+  protected markUnseen(e: RegistrationEnquiry): void {
+    const next = new Set(this.seenKeys());
+    next.delete(this.enquiryKey(e));
+    this.commitSeen(next);
+  }
+
+  /** Mark every currently-loaded enquiry as viewed. */
+  protected markAllSeen(): void {
+    const next = new Set(this.seenKeys());
+    for (const e of this.enquiries()) next.add(this.enquiryKey(e));
+    this.commitSeen(next);
+  }
 
   /** A working copy the admin edits; committed on Save. Falls back to the seed
    *  defaults when Firebase has no content yet, so an empty project is editable. */

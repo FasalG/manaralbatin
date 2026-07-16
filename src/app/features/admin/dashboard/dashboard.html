@@ -22,7 +22,7 @@
       </button>
       <button type="button" class="tab" [class.is-active]="tab() === 'enquiries'" (click)="setTab('enquiries')">
         <app-icon name="users" [size]="18" /> {{ i18n.t('admin.enquiries') }}
-        @if (enquiries().length) { <span class="badge">{{ enquiries().length }}</span> }
+        @if (newEnquiries().length) { <span class="badge">{{ newEnquiries().length }}</span> }
       </button>
     </nav>
 
@@ -370,29 +370,80 @@
     } @else {
       <div class="enquiries">
         <div class="enquiries__head">
-          <p>{{ enquiries().length }} {{ i18n.pick({ en: 'total enquiries', ar: 'طلب' }) }}</p>
-          @if (enquiries().length) {
-            <button type="button" class="btn btn--ghost btn--sm" (click)="exportEnquiries()"><app-icon name="download" [size]="16" /> {{ i18n.pick({ en: 'Export CSV', ar: 'تصدير CSV' }) }}</button>
-          }
-        </div>
-        @if (enquiries().length) {
-          <div class="cards">
-            @for (e of enquiries(); track $index) {
-              <article class="enquiry card">
-                <div class="enquiry__top">
-                  <strong>{{ e.studentName }}</strong>
-                  <span class="chip">{{ e.gradeApplying }}</span>
-                </div>
-                <ul>
-                  <li><app-icon name="users" [size]="15" /> {{ e.parentName }}</li>
-                  <li><app-icon name="phone" [size]="15" /> <a dir="ltr" [href]="'tel:' + e.phone">{{ e.phone }}</a></li>
-                  <li><app-icon name="mail" [size]="15" /> <a dir="ltr" [href]="'mailto:' + e.email">{{ e.email }}</a></li>
-                  @if (e.message) { <li class="enquiry__msg">“{{ e.message }}”</li> }
-                </ul>
-                <time>{{ e.submittedAt }}</time>
-              </article>
+          <p>
+            <strong>{{ newEnquiries().length }}</strong> {{ i18n.pick({ en: 'new', ar: 'جديد' }) }}
+            <span class="enquiries__total">· {{ enquiries().length }} {{ i18n.pick({ en: 'total', ar: 'الإجمالي' }) }}</span>
+          </p>
+          <div class="enquiries__head-actions">
+            @if (newEnquiries().length) {
+              <button type="button" class="btn btn--ghost btn--sm" (click)="markAllSeen()"><app-icon name="check" [size]="16" /> {{ i18n.pick({ en: 'Mark all read', ar: 'تعليم الكل كمقروء' }) }}</button>
+            }
+            @if (enquiries().length) {
+              <button type="button" class="btn btn--ghost btn--sm" (click)="exportEnquiries()"><app-icon name="download" [size]="16" /> {{ i18n.pick({ en: 'Export CSV', ar: 'تصدير CSV' }) }}</button>
             }
           </div>
+        </div>
+
+        @if (enquiries().length) {
+          <!-- ===== NEW / UNREAD ===== -->
+          @if (newEnquiries().length) {
+            <div class="cards">
+              @for (e of newEnquiries(); track enquiryKey(e)) {
+                <article class="enquiry card enquiry--new">
+                  <div class="enquiry__top">
+                    <strong>{{ e.studentName }}</strong>
+                    <span class="chip">{{ e.gradeApplying }}</span>
+                  </div>
+                  <ul>
+                    <li><app-icon name="users" [size]="15" /> {{ e.parentName }}</li>
+                    <li><app-icon name="phone" [size]="15" /> <a dir="ltr" [href]="'tel:' + e.phone">{{ e.phone }}</a></li>
+                    <li><app-icon name="mail" [size]="15" /> <a dir="ltr" [href]="'mailto:' + e.email">{{ e.email }}</a></li>
+                    @if (e.message) { <li class="enquiry__msg">“{{ e.message }}”</li> }
+                  </ul>
+                  <div class="enquiry__foot">
+                    <time>{{ e.submittedAt }}</time>
+                    <button type="button" class="enquiry__mark" (click)="markSeen(e)"><app-icon name="check" [size]="15" /> {{ i18n.pick({ en: 'Mark as read', ar: 'تعليم كمقروء' }) }}</button>
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="empty card empty--clear">
+              <app-icon name="check" [size]="30" />
+              <p>{{ i18n.pick({ en: 'All caught up — no new enquiries.', ar: 'لا توجد طلبات جديدة.' }) }}</p>
+            </div>
+          }
+
+          <!-- ===== VIEWED (collapsible) ===== -->
+          @if (viewedEnquiries().length) {
+            <details class="viewed">
+              <summary>
+                <app-icon name="check" [size]="16" />
+                {{ i18n.pick({ en: 'Viewed', ar: 'المقروءة' }) }}
+                <span class="viewed__count">{{ viewedEnquiries().length }}</span>
+              </summary>
+              <div class="cards viewed__cards">
+                @for (e of viewedEnquiries(); track enquiryKey(e)) {
+                  <article class="enquiry card enquiry--seen">
+                    <div class="enquiry__top">
+                      <strong>{{ e.studentName }}</strong>
+                      <span class="chip">{{ e.gradeApplying }}</span>
+                    </div>
+                    <ul>
+                      <li><app-icon name="users" [size]="15" /> {{ e.parentName }}</li>
+                      <li><app-icon name="phone" [size]="15" /> <a dir="ltr" [href]="'tel:' + e.phone">{{ e.phone }}</a></li>
+                      <li><app-icon name="mail" [size]="15" /> <a dir="ltr" [href]="'mailto:' + e.email">{{ e.email }}</a></li>
+                      @if (e.message) { <li class="enquiry__msg">“{{ e.message }}”</li> }
+                    </ul>
+                    <div class="enquiry__foot">
+                      <time>{{ e.submittedAt }}</time>
+                      <button type="button" class="enquiry__mark enquiry__mark--undo" (click)="markUnseen(e)">{{ i18n.pick({ en: 'Mark unread', ar: 'تعليم كغير مقروء' }) }}</button>
+                    </div>
+                  </article>
+                }
+              </div>
+            </details>
+          }
         } @else {
           <div class="empty card">
             <app-icon name="mail" [size]="30" />
