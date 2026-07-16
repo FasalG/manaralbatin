@@ -1,4 +1,4 @@
-:host { display: block; background: var(--mist); min-height: calc(100vh - 76px); }
+:host { display: block; background: var(--mist); min-height: calc(100vh - var(--header-h)); }
 
 .dash__top { background: var(--ink); color: #fff; }
 .dash__top-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1.4rem; flex-wrap: wrap; }

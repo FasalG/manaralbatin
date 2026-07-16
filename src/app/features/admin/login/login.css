@@ -1,7 +1,7 @@
 :host { display: block; }
 
 .login {
-  position: relative; overflow: hidden; min-height: calc(100vh - 76px);
+  position: relative; overflow: hidden; min-height: calc(100vh - var(--header-h));
   display: grid; place-items: center; padding: 2rem var(--gutter);
   background: linear-gradient(160deg, var(--mist), var(--sand));
 }
