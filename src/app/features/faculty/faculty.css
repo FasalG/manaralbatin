@@ -8,6 +8,16 @@
   border: 2px dashed color-mix(in srgb, var(--orange) 40%, transparent);
   border-radius: var(--r-xl);
 }
+@media (min-width: 640px) {
+  .leader {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2.2rem;
+  }
+  .leader__photo {
+    flex: 0 0 160px;
+  }
+}
 .leader__photo img {
   width: 160px; height: 190px; object-fit: cover; object-position: top center;
   border-radius: var(--r-lg); box-shadow: var(--shadow-md); background: var(--mist);

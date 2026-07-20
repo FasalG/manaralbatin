@@ -6,29 +6,15 @@
 
 <section class="section">
   <div class="shell">
-    <div class="leaders-grid">
-      <div class="leader card" appReveal>
-        <div class="leader__photo">
-          <img [appImg]="director().photo" [alt]="i18n.pick(director().name)" width="300" height="360" />
-        </div>
-        <div class="leader__copy">
-          <span class="chip"><app-icon name="star" [size]="14" /> {{ i18n.pick({ en: 'Director', ar: 'المدير العام' }) }}</span>
-          <h2>{{ i18n.pick(director().name) }}</h2>
-          <p class="leader__role">{{ i18n.pick(director().role) }}</p>
-          <p>{{ i18n.pick(director().body) }}</p>
-        </div>
+    <div class="leader card" appReveal>
+      <div class="leader__photo">
+        <img [appImg]="director().photo" [alt]="i18n.pick(director().name)" width="300" height="360" />
       </div>
-
-      <div class="leader card" appReveal [revealDelay]="100">
-        <div class="leader__photo">
-          <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="300" height="360" />
-        </div>
-        <div class="leader__copy">
-          <span class="chip"><app-icon name="graduation" [size]="14" /> {{ i18n.pick({ en: 'Principal', ar: 'مدير المدرسة' }) }}</span>
-          <h2>{{ i18n.pick(principal().name) }}</h2>
-          <p class="leader__role">{{ i18n.pick(principal().role) }}</p>
-          <p>{{ i18n.pick(principal().body) }}</p>
-        </div>
+      <div class="leader__copy">
+        <span class="chip"><app-icon name="star" [size]="14" /> {{ i18n.pick({ en: 'Director', ar: 'المدير العام' }) }}</span>
+        <h2>{{ i18n.pick(director().name) }}</h2>
+        <p class="leader__role">{{ i18n.pick(director().role) }}</p>
+        <p>{{ i18n.pick(director().body) }}</p>
       </div>
     </div>
 
@@ -38,8 +24,18 @@
     </div>
 
     <div class="team">
+      <!-- Principal -->
+      <article class="member card" appReveal>
+        <div class="member__photo">
+          <img [appImg]="principal().photo" [alt]="i18n.pick(principal().name)" width="220" height="220" />
+        </div>
+        <h3>{{ i18n.pick(principal().name) }}</h3>
+        <p class="member__role">{{ i18n.pick(principal().role) }}</p>
+        <span class="member__subject"><app-icon name="graduation" [size]="14" /> {{ i18n.pick({ en: 'School Leadership', ar: 'القيادة المدرسية' }) }}</span>
+      </article>
+
       @for (m of faculty(); track $index) {
-        <article class="member card" appReveal [revealDelay]="$index * 70">
+        <article class="member card" appReveal [revealDelay]="($index + 1) * 70">
           <div class="member__photo">
             <img [appImg]="m.photo" [alt]="i18n.pick(m.name)" width="220" height="220" />
           </div>

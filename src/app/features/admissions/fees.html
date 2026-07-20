@@ -23,6 +23,68 @@
       }
     </div>
 
+    <!-- Registration Fee Banner -->
+    <div class="fee-registration-card card" appReveal>
+      <div class="fee-registration-card__icon">
+        <app-icon name="shield" [size]="26" />
+      </div>
+      <div class="fee-registration-card__content">
+        <h3>{{ i18n.pick({ en: 'New Admission Registration Fee', ar: 'رسوم تسجيل القبول الجديد' }) }}</h3>
+        <p>{{ i18n.pick({ en: 'SAR 1,000 (One-time fee to confirm admission)', ar: '1,000 ريال سعودي (رسوم تدفع لمرة واحدة لتأكيد القبول)' }) }}</p>
+      </div>
+    </div>
+
+    <!-- Payment Options Grid -->
+    <div class="payment-plans-section" appReveal>
+      <div class="payment-plans-header">
+        <h2>{{ i18n.pick({ en: 'Payment Options', ar: 'خيارات السداد' }) }}</h2>
+      </div>
+      <div class="payment-plans-grid">
+        <div class="payment-plan card">
+          <div class="payment-plan__header">
+            <span class="payment-plan__badge">{{ i18n.pick({ en: 'Flexible', ar: 'مرن' }) }}</span>
+            <h3>{{ i18n.pick({ en: 'Standard Plan', ar: 'الخطة القياسية' }) }}</h3>
+          </div>
+          <div class="payment-plan__body">
+            <ul>
+              <li>
+                <app-icon name="check" [size]="18" />
+                <span>{{ i18n.pick({ en: 'Pay 50% at the time of admission', ar: 'دفع 50% عند القبول والتسجيل' }) }}</span>
+              </li>
+              <li>
+                <app-icon name="check" [size]="18" />
+                <span>{{ i18n.pick({ en: 'Remaining 50% in 9 monthly installments', ar: 'المتبقي 50% على 9 أقساط شهرية' }) }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="payment-plan card payment-plan--featured">
+          <div class="payment-plan__header">
+            <span class="payment-plan__badge payment-plan__badge--save">{{ i18n.pick({ en: 'Save 15%', ar: 'توفير 15%' }) }}</span>
+            <h3>{{ i18n.pick({ en: 'Advance Payment Plan', ar: 'خطة الدفع المقدم' }) }}</h3>
+          </div>
+          <div class="payment-plan__body">
+            <ul>
+              <li>
+                <app-icon name="check" [size]="18" />
+                <span>{{ i18n.pick({ en: 'Pay the full annual tuition fee upfront', ar: 'دفع الرسوم الدراسية السنوية كاملة مقدماً' }) }}</span>
+              </li>
+              <li>
+                <app-icon name="check" [size]="18" />
+                <span>{{ i18n.pick({ en: 'Receive a 15% discount on total fee', ar: 'الحصول على خصم 15% من إجمالي الرسوم' }) }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MABIS Welcome Message -->
+    <div class="welcome-message text-center" appReveal>
+      <p>{{ i18n.pick({ en: 'We look forward to welcoming your child to the MABIS family.', ar: 'نتطلع إلى الترحيب بطفلك في عائلة مدرسة منار الباطن العالمية (MABIS).' }) }}</p>
+    </div>
+
     <div class="fee-callout card" appReveal>
       <app-icon name="phone" [size]="24" />
       <div>
