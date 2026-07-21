@@ -14,6 +14,15 @@
   background: var(--paper); transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
 }
 .field textarea { resize: vertical; }
+/* Mobile Safari gives date inputs an intrinsic min-width that overflows the
+   grid column — normalise their sizing so they stay inside the field. */
+.field input[type='date'] {
+  min-width: 0;
+  max-width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input[type='date']::-webkit-date-and-time-value { text-align: start; margin: 0; }
 .field input:focus, .field select:focus, .field textarea:focus {
   outline: none; border-color: var(--orange);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--orange) 20%, transparent);

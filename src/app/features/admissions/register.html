@@ -65,8 +65,18 @@
 
             <div class="field">
               <label for="phone">{{ i18n.t('form.phone') }} *</label>
-              <input id="phone" type="tel" dir="ltr" formControlName="phone" [class.err]="invalid('phone')" autocomplete="tel" />
-              @if (invalid('phone')) { <small class="msg">{{ i18n.t('form.required') }}</small> }
+              <app-phone-input
+                inputId="phone"
+                formControlName="phone"
+                [invalid]="invalid('phone')"
+                [searchLabel]="i18n.t('form.searchCountry')"
+                [emptyLabel]="i18n.t('form.noCountry')"
+              />
+              @if (invalid('phone')) {
+                <small class="msg">{{
+                  form.controls.phone.errors?.['required'] ? i18n.t('form.required') : i18n.t('form.invalidPhone')
+                }}</small>
+              }
             </div>
 
             <div class="field">

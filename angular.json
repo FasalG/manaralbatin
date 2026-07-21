@@ -22,6 +22,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "flag-icons.min.css",
+                "input": "node_modules/flag-icons/css",
+                "output": "flag-icons/css"
+              },
+              {
+                "glob": "4x3/**/*.svg",
+                "input": "node_modules/flag-icons/flags",
+                "output": "flag-icons/flags"
               }
             ],
             "styles": [

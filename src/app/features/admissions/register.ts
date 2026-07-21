@@ -6,12 +6,13 @@ import { ContentService } from '../../core/services/content.service';
 import { RegistrationService } from '../../core/services/registration.service';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero';
 import { IconComponent } from '../../shared/components/icon/icon';
+import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input';
 import { RegistrationEnquiry } from '../../core/models/content.model';
 
 @Component({
   selector: 'app-register',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, RouterLink, PageHeroComponent, IconComponent],
+  imports: [ReactiveFormsModule, RouterLink, PageHeroComponent, IconComponent, PhoneInputComponent],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -32,7 +33,7 @@ export class RegisterPage {
     gradeApplying: ['', Validators.required],
     gender: [''],
     parentName: ['', Validators.required],
-    phone: ['', [Validators.required, Validators.minLength(7)]],
+    phone: [''],
     email: ['', [Validators.required, Validators.email]],
     nationality: [''],
     previousSchool: [''],

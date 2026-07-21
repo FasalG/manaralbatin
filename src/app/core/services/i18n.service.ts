@@ -67,6 +67,9 @@ const UI: Record<string, LocalizedText> = {
   'form.select': { en: 'Please select', ar: 'اختر' },
   'form.required': { en: 'This field is required', ar: 'هذا الحقل مطلوب' },
   'form.invalidEmail': { en: 'Enter a valid email', ar: 'أدخل بريداً صحيحاً' },
+  'form.invalidPhone': { en: 'Enter a valid phone number', ar: 'أدخل رقم هاتف صحيح' },
+  'form.searchCountry': { en: 'Search country', ar: 'ابحث عن الدولة' },
+  'form.noCountry': { en: 'No matches', ar: 'لا توجد نتائج' },
   'form.success': {
     en: 'Thank you! Your enquiry has been received. Our admissions team will contact you soon.',
     ar: 'شكراً لك! تم استلام طلبك وسيتواصل معك فريق القبول قريباً.',

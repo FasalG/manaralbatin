@@ -1,0 +1,67 @@
+<div class="tel" [class.tel--err]="invalid()" [class.tel--open]="open()" [class.tel--disabled]="disabled()">
+  <button
+    type="button"
+    class="tel__country"
+    (click)="toggle()"
+    [disabled]="disabled()"
+    [attr.aria-expanded]="open()"
+    aria-haspopup="listbox"
+    [attr.aria-label]="searchLabel()"
+  >
+    <span class="tel__flag fi fi-{{ country().iso.toLowerCase() }}"></span>
+    <span class="tel__dial">+{{ country().dial }}</span>
+    <svg class="tel__caret" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+      <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <input
+    [id]="inputId()"
+    class="tel__input"
+    type="tel"
+    dir="ltr"
+    inputmode="tel"
+    autocomplete="tel-national"
+    [placeholder]="placeholder()"
+    [value]="national()"
+    [disabled]="disabled()"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  />
+
+  @if (open()) {
+    <div class="tel__panel" role="listbox">
+      <div class="tel__search-wrap">
+        <input
+          class="tel__search"
+          type="text"
+          [value]="search()"
+          [placeholder]="searchLabel()"
+          (input)="onSearch($event)"
+          (click)="$event.stopPropagation()"
+          autofocus
+        />
+      </div>
+      <ul class="tel__list">
+        @for (c of filtered(); track c.iso) {
+          <li>
+            <button
+              type="button"
+              class="tel__opt"
+              [class.is-active]="c.iso === country().iso"
+              (click)="selectCountry(c)"
+              role="option"
+              [attr.aria-selected]="c.iso === country().iso"
+            >
+              <span class="tel__flag fi fi-{{ c.iso.toLowerCase() }}"></span>
+              <span class="tel__opt-name">{{ c.name }}</span>
+              <span class="tel__opt-dial">+{{ c.dial }}</span>
+            </button>
+          </li>
+        } @empty {
+          <li class="tel__empty">{{ emptyLabel() }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div>
