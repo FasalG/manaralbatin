@@ -33,3 +33,141 @@ html[dir='rtl'] .fee-row--head { letter-spacing: 0; }
   .fee-row span::before { content: attr(data-label); font-weight: 700; color: var(--ink-muted); font-size: 0.82rem; }
   .fee-grade::before { color: var(--orange); }
 }
+
+/* Registration fee card & payment options styling */
+.fee-registration-card {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--paper);
+  border: 2px dashed color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius: var(--r-lg);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.fee-registration-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.fee-registration-card__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--gold) 16%, transparent);
+  color: var(--gold-deep);
+  flex-shrink: 0;
+}
+.fee-registration-card__content h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.25rem;
+  color: var(--navy);
+}
+.fee-registration-card__content p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.payment-plans-section {
+  margin-top: 3rem;
+}
+.payment-plans-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.payment-plans-header h2 {
+  font-size: 1.75rem;
+  color: var(--navy);
+  margin: 0;
+}
+.payment-plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.payment-plan {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.payment-plan:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+.payment-plan--featured {
+  border-color: var(--green);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in srgb, var(--green) 4%, var(--paper)) 100%);
+}
+.payment-plan__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.payment-plan__badge {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--mist);
+  color: var(--ink-soft);
+}
+.payment-plan__badge--save {
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+  color: var(--green-deep);
+}
+.payment-plan h3 {
+  font-size: 1.35rem;
+  margin: 0;
+  color: var(--navy);
+}
+.payment-plan__body ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.payment-plan__body li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.payment-plan__body li app-icon {
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.welcome-message {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  padding: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--royal);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .payment-plans-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .fee-registration-card {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}
