@@ -123,6 +123,18 @@ export interface LeaderMessage {
   body: LocalizedText;
 }
 
+export interface NoticeInfo {
+  id: string;
+  active: boolean;
+  showAsPopup: boolean;
+  badge: LocalizedText;
+  title: LocalizedText;
+  content: LocalizedText;
+  linkText?: LocalizedText;
+  linkPath?: string;
+  updatedAt: string;
+}
+
 export interface SiteContent {
   school: SchoolInfo;
   hero: Hero;
@@ -148,6 +160,8 @@ export interface SiteContent {
     story: LocalizedText;
     pillars: { title: LocalizedText; text: LocalizedText }[];
   };
+  notice?: NoticeInfo;
+  notices?: NoticeInfo[];
 }
 
 /** A registration enquiry submitted by a parent. */

@@ -21,3 +21,146 @@ main { flex: 1 0 auto; }
   animation: app-spin 0.8s linear infinite;
 }
 @keyframes app-spin { to { transform: rotate(360deg); } }
+
+/* =========================================================================
+   Notice Modal Popup (Backdrop filter blur, glassmorphic wrapper)
+   ========================================================================= */
+.notice-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+}
+.notice-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 11, 43, 0.48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fade-in 0.3s var(--ease) forwards;
+}
+.notice-modal__card {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  width: 100%;
+  max-width: 600px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  border: 3.5px dashed var(--gold);
+  animation: pop-up 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.notice-modal__close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: var(--mist);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+html[dir='rtl'] .notice-modal__close-btn {
+  right: auto;
+  left: 1.25rem;
+}
+.notice-modal__close-btn:hover {
+  background: var(--sand-deep);
+  color: var(--navy);
+}
+
+.notice-modal__header {
+  margin-bottom: 1.2rem;
+}
+.notice-modal__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.8rem;
+  background: color-mix(in srgb, var(--gold) 15%, transparent);
+  color: var(--gold-deep);
+}
+.notice-modal__title {
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.75rem);
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.22;
+}
+
+.notice-modal__body {
+  max-height: clamp(200px, 48vh, 380px);
+  overflow-y: auto;
+  margin-bottom: 1.6rem;
+  padding-inline-end: 0.6rem;
+}
+.notice-modal__body::-webkit-scrollbar {
+  width: 6px;
+}
+.notice-modal__body::-webkit-scrollbar-track {
+  background: var(--mist);
+  border-radius: 99px;
+}
+.notice-modal__body::-webkit-scrollbar-thumb {
+  background: var(--ink-muted);
+  border-radius: 99px;
+}
+
+.notice-modal__text {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.notice-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid var(--line-cool);
+  padding-top: 1.25rem;
+}
+html[dir='rtl'] .notice-modal__footer {
+  flex-direction: row-reverse;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop-up {
+  from { opacity: 0; transform: scale(0.92) translateY(24px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (max-width: 560px) {
+  .notice-modal {
+    padding: 1rem;
+  }
+  .notice-bar__title {
+    max-width: 25ch;
+  }
+  .notice-modal__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  html[dir='rtl'] .notice-modal__footer {
+    flex-direction: column;
+  }
+  .notice-modal__footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

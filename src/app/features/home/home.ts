@@ -6,6 +6,7 @@ import { IconComponent } from '../../shared/components/icon/icon';
 import { CountUpComponent } from '../../shared/components/count-up/count-up';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { ImgFallbackDirective } from '../../shared/directives/img-fallback.directive';
+import { NoticeInfo } from '../../core/models/content.model';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,12 @@ export class HomePage {
   private readonly content = inject(ContentService);
 
   protected readonly c = computed(() => this.content.content());
+  protected readonly notices = this.content.notices;
+
+  protected openNotice(notice: NoticeInfo, event: Event): void {
+    event.preventDefault();
+    this.content.openNoticePopup(notice);
+  }
   protected readonly hero = computed(() => this.c().hero);
   protected readonly school = computed(() => this.c().school);
   protected readonly stats = computed(() => this.c().stats);

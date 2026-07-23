@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { SiteContent } from '../models/content.model';
+import { SiteContent, NoticeInfo } from '../models/content.model';
 import { SEED_CONTENT } from './seed-content';
 import { FirebaseDataService } from './firebase-data.service';
 
@@ -26,7 +26,52 @@ export class ContentService {
   readonly content = computed(() => this._content()!);
   /** True once Firebase content has arrived and is safe to render. */
   readonly ready = computed(() => this._content() !== null);
+  readonly notices = computed(() => {
+    if (!this.ready()) return [];
+    const c = this.content();
+    if (c.notices) {
+      return c.notices.map((n, idx) => ({
+        ...n,
+        id: n.id || `notice-${idx}-${n.updatedAt}`
+      }));
+    }
+    if (c.notice) {
+      return [{ ...c.notice, id: c.notice.id || 'notice-timing' }];
+    }
+    return [];
+  });
   readonly loaded = signal(false);
+
+  readonly showNoticePopup = signal(false);
+  readonly showNoticeBar = signal(false);
+  readonly selectedNotice = signal<NoticeInfo | null>(null);
+
+  openNoticePopup(notice?: NoticeInfo): void {
+    if (notice) {
+      this.selectedNotice.set(notice);
+    } else {
+      this.selectedNotice.set(null);
+    }
+    this.showNoticePopup.set(true);
+  }
+
+  dismissNoticePopup(): void {
+    this.showNoticePopup.set(false);
+    this.selectedNotice.set(null);
+    this.notices().forEach((n) => {
+      if (n.active && n.showAsPopup) {
+        localStorage.setItem(`mab-notice-popup-dismissed-${n.id}`, n.updatedAt);
+      }
+    });
+  }
+
+  dismissNoticeBar(): void {
+    this.showNoticeBar.set(false);
+    const n = this._content()?.notice;
+    if (n) {
+      localStorage.setItem('mab-notice-bar-dismissed', n.updatedAt || '1');
+    }
+  }
 
   constructor() {
     void this.hydrate();

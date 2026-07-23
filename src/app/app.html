@@ -1,9 +1,45 @@
 @if (content.ready() || isAdminRoute()) {
   @if (content.ready()) { <app-header /> }
+
   <main id="main">
     <router-outlet />
   </main>
   @if (content.ready()) { <app-footer /> }
+
+  <!-- Global Notice Popup Modal -->
+  @if (content.ready() && !isAdminRoute() && isPopupOpen() && noticesToShowInPopup().length > 0) {
+    @let n = noticesToShowInPopup()[0];
+    <div class="notice-modal" role="dialog" aria-modal="true" [attr.aria-label]="i18n.pick(n.title)">
+      <div class="notice-modal__backdrop" (click)="dismissNoticePopup()"></div>
+      <div class="notice-modal__card card card--dash">
+        <button type="button" class="notice-modal__close-btn" (click)="dismissNoticePopup()" aria-label="Close Notice">
+          &times;
+        </button>
+        
+        <div class="notice-modal__header">
+          <span class="chip notice-modal__chip">
+            <app-icon name="bell" [size]="14" /> {{ i18n.pick(n.badge) }}
+          </span>
+          <h2 class="notice-modal__title">{{ i18n.pick(n.title) }}</h2>
+        </div>
+        
+        <div class="notice-modal__body">
+          <div class="notice-modal__text" style="white-space: pre-wrap;">{{ i18n.pick(n.content) }}</div>
+        </div>
+        
+        <div class="notice-modal__footer">
+          @if (n.linkPath && n.linkText) {
+            <a class="btn btn--gold btn--pop" [routerLink]="n.linkPath" (click)="dismissNoticePopup()">
+              {{ i18n.pick(n.linkText) }} <app-icon name="arrow" [size]="16" />
+            </a>
+          }
+          <button type="button" class="btn btn--ghost" (click)="dismissNoticePopup()">
+            {{ noticesToShowInPopup().length > 1 ? i18n.pick({ en: 'Next', ar: 'التالي' }) : i18n.pick({ en: 'Close', ar: 'إغلاق' }) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 } @else if (content.loaded()) {
   <div class="app-state">
     <p>No content has been published yet.</p>

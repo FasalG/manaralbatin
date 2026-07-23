@@ -32,6 +32,8 @@ const PATHS: Record<string, string> = {
   download: '<path d="M12 4v10m0 0 4-4m-4 4-4-4"/><path d="M5 19h14"/>',
   whatsapp: '<path d="M4 20l1.4-4A8 8 0 1 1 9 19.2L4 20Z"/><path d="M9 9c0 3 2.5 5.5 5.5 5.5.6 0 1-.5 1-1l-1.4-1-1.2.8c-1-.5-1.9-1.4-2.4-2.4l.8-1.2-1-1.4c-.5 0-1 .4-1 1Z" fill="currentColor" stroke="none"/>',
   calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  megaphone: '<path d="m3 11 18-5v12L3 14v-3zM11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
 };
 
 @Component({

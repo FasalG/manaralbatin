@@ -3,12 +3,25 @@
   <div class="ticker__track">
     @for (i of [0, 1, 2, 3, 4, 5]; track i) {
       <span class="ticker__item" [attr.aria-hidden]="i > 0 ? 'true' : null">
+        <!-- Original Hero Badge -->
         <span class="ticker__bell"><app-icon name="star" [size]="14" /></span>
         {{ i18n.pick(hero().badge) }}
         <a class="ticker__link" [routerLink]="hero().primaryCta.path" tabindex="-1">
           {{ i18n.pick({ en: 'Click Here', ar: 'اضغط هنا' }) }}
         </a>
         <span class="ticker__sep">✦</span>
+
+        <!-- Dynamic Notice details (appended when active) -->
+        @for (n of notices(); track n.id) {
+          @if (n.active) {
+            <span class="ticker__bell"><app-icon name="bell" [size]="14" /></span>
+            <strong>{{ i18n.pick(n.badge) }}</strong>: {{ i18n.pick(n.title) }}
+            <a class="ticker__link" (click)="openNotice(n, $event)" style="cursor: pointer;" tabindex="-1">
+              {{ i18n.pick({ en: 'Read details', ar: 'تفاصيل الإعلان' }) }}
+            </a>
+            <span class="ticker__sep">✦</span>
+          }
+        }
       </span>
     }
   </div>

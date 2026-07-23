@@ -315,4 +315,29 @@ export const SEED_CONTENT: SiteContent = {
       { title: { en: 'Whole-child growth', ar: 'نموّ متكامل' }, text: { en: 'Academics, arts, sport and wellbeing together.', ar: 'الأكاديميات والفنون والرياضة والعافية معاً.' } },
     ],
   },
+  notices: [
+    {
+      id: 'admissions-timing',
+      active: true,
+      showAsPopup: true,
+      badge: {
+        en: 'Admissions Update',
+        ar: 'تحديث القبول'
+      },
+      title: {
+        en: 'Office Timing Update | MABIS Admissions',
+        ar: 'تحديث مواعيد عمل مكتب القبول'
+      },
+      content: {
+        en: 'Dear Parents,\n\nPlease note that effective from tomorrow and until further notice, the Manar Al Batin International School (MABIS) Admission Office will be open from Sunday to Thursday for enquiries and in-person admission registration during the following hours:\n\n🏫 Admission Office Hours\n📅 Sunday – Thursday\n🕓 4:00 PM – 7:00 PM\n\nWe look forward to welcoming and assisting you.',
+        ar: 'أولياء الأمور الكرام،\n\nيرجى العلم بأنه اعتبارًا من يوم غدٍ وحتى إشعارٍ آخر، ستكون أوقات عمل مكتب القبول في مدرسة منار الباطن العالمية من الأحد إلى الخميس للاستفسارات والتسجيل الحضوري وفق المواعيد التالية:\n\n🏫 مواعيد عمل مكتب القبول\n📅 من الأحد إلى الخميس\n🕓 من الساعة 4:00 مساءً إلى 7:00 مساءً\n\nيسعدنا استقبالكم وخدمتكم خلال هذه الفترة'
+      },
+      linkText: {
+        en: 'Online Registration',
+        ar: 'التسجيل الإلكتروني'
+      },
+      linkPath: '/admissions/register',
+      updatedAt: '2026-07-21T12:00:00.000Z'
+    }
+  ]
 };

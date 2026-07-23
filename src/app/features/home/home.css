@@ -50,7 +50,7 @@
 .ticker__track {
   display: flex;
   width: max-content;
-  animation: marquee 38s linear infinite;
+  animation: marquee 75s linear infinite;
 }
 .ticker:hover .ticker__track { animation-play-state: paused; }
 .ticker__item {
@@ -74,8 +74,19 @@
 }
 .ticker__link:hover { background: var(--gold); color: var(--ink); }
 .ticker__sep { color: rgba(255, 255, 255, 0.6); }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-html[dir='rtl'] .ticker__track { animation-direction: reverse; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+
+html[dir='rtl'] .ticker__track {
+  animation-name: marquee-rtl;
+}
 
 /* =========================================================================
    HERO

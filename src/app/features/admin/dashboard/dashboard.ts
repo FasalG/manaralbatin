@@ -12,7 +12,7 @@ import { IconComponent } from '../../../shared/components/icon/icon';
 import { AdminI18nField } from './i18n-field';
 import {
   Accreditation, CalendarEvent, FacultyMember, Feature, FeeRow, GalleryImage,
-  LocalizedText, RegistrationEnquiry, Requirement, ResourceItem, SiteContent,
+  LocalizedText, NoticeInfo, RegistrationEnquiry, Requirement, ResourceItem, SiteContent,
 } from '../../../core/models/content.model';
 
 type Tab = 'content' | 'enquiries';
@@ -110,6 +110,16 @@ export class AdminDashboardPage {
 
   constructor() {
     void this.loadEnquiries();
+    if (!this.draft.notices) {
+      if (this.draft.notice) {
+        this.draft.notices = [{
+          ...this.draft.notice,
+          id: this.draft.notice.id || 'notice-timing'
+        }];
+      } else {
+        this.draft.notices = structuredClone(SEED_CONTENT.notices || []);
+      }
+    }
   }
 
   protected setTab(t: Tab): void {
@@ -210,9 +220,29 @@ export class AdminDashboardPage {
   protected addResource(): void {
     this.draft.resources.push({ icon: 'download', title: blankText(), description: blankText(), fileUrl: '', fileLabel: 'PDF' } as ResourceItem);
   }
+  protected addNotice(): void {
+    this.draft.notices = this.draft.notices || [];
+    this.draft.notices.push({
+      id: 'notice-' + Math.random().toString(36).substring(2, 9),
+      active: true,
+      showAsPopup: false,
+      badge: blankText(),
+      title: blankText(),
+      content: blankText(),
+      linkText: blankText(),
+      linkPath: '',
+      updatedAt: new Date().toISOString()
+    });
+  }
 
   protected async save(): Promise<void> {
     this.saving.set(true);
+    if (this.draft.notices) {
+      const now = new Date().toISOString();
+      this.draft.notices.forEach((n) => {
+        n.updatedAt = now;
+      });
+    }
     const ok = await this.content.save(structuredClone(this.draft));
     this.saving.set(false);
     this.savedMsg.set(

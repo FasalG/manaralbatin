@@ -66,6 +66,49 @@
           </div>
         </details>
 
+        <!-- ============ NOTICE BOARD ============ -->
+        @if (draft.notices) {
+          <details class="block" open>
+            <summary>{{ i18n.pick({ en: 'Notice Board & timing updates', ar: 'لوحة الإعلانات وتحديثات المواعيد' }) }}</summary>
+            <div class="block__body">
+              @for (n of draft.notices; track n.id; let idx = $index) {
+                <div class="list__item" style="border: 1px dashed var(--line); padding: 1.25rem; border-radius: var(--r-md); margin-bottom: 1.5rem; position: relative;">
+                  <div class="item-head" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--line-cool); padding-bottom: 0.5rem;">
+                    <strong>{{ pick('Notice #' + (idx + 1), 'إعلان #' + (idx + 1)) }}</strong>
+                    <button type="button" class="del" (click)="removeAt(draft.notices, idx)">
+                      {{ pick('Remove notice', 'حذف الإعلان') }}
+                    </button>
+                  </div>
+                  
+                  <div class="row" style="margin-bottom: 1.25rem; gap: 2rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                      <input type="checkbox" [(ngModel)]="n.active" style="width: auto; margin: 0;" />
+                      <strong>{{ pick('Enable notice', 'تفعيل الإعلان') }}</strong>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                      <input type="checkbox" [(ngModel)]="n.showAsPopup" style="width: auto; margin: 0;" />
+                      <strong>{{ pick('Show as popup on land', 'إظهار كنافذة منبثقة') }}</strong>
+                    </label>
+                  </div>
+                  
+                  <app-i18n-field [label]="pick('Notice badge (e.g. IMPORTANT, UPDATE)', 'شارة الإعلان (مثل: هام، تحديث)')" [value]="n.badge" />
+                  <app-i18n-field [label]="pick('Notice title', 'عنوان الإعلان')" [value]="n.title" />
+                  <app-i18n-field [label]="pick('Notice content', 'محتوى الإعلان')" [value]="n.content" [multiline]="true" />
+                  
+                  <div class="row">
+                    <app-i18n-field [label]="pick('Button text (optional)', 'نص الزر (اختياري)')" [value]="n.linkText || { en: '', ar: '' }" style="flex: 1;" />
+                    <label class="fld" style="flex: 1;">
+                      {{ pick('Button path / URL (optional)', 'رابط الزر (اختياري)') }}
+                      <input [(ngModel)]="n.linkPath" placeholder="e.g. /admissions/register" />
+                    </label>
+                  </div>
+                </div>
+              }
+              <button type="button" class="add-btn" (click)="addNotice()">+ {{ pick('Add notice', 'إضافة إعلان جديد') }}</button>
+            </div>
+          </details>
+        }
+
         <!-- ============ HOME HERO ============ -->
         <details class="block">
           <summary>{{ i18n.pick({ en: 'Home hero', ar: 'واجهة الرئيسية' }) }}</summary>
