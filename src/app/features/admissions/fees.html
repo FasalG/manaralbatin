@@ -10,14 +10,14 @@
       <div class="fee-row fee-row--head">
         <span>{{ i18n.pick({ en: 'Stage', ar: 'المرحلة' }) }}</span>
         <span>{{ i18n.pick({ en: 'Annual tuition', ar: 'الرسوم السنوية' }) }}</span>
-        <span>{{ i18n.pick({ en: 'Registration', ar: 'رسوم التسجيل' }) }}</span>
+      
         <span>{{ i18n.pick({ en: 'Notes', ar: 'ملاحظات' }) }}</span>
       </div>
       @for (row of fees(); track $index) {
         <div class="fee-row">
           <span class="fee-grade" [attr.data-label]="i18n.pick({ en: 'Stage', ar: 'المرحلة' })">{{ i18n.pick(row.grade) }}</span>
           <span [attr.data-label]="i18n.pick({ en: 'Tuition', ar: 'الرسوم' })">{{ row.tuition }}</span>
-          <span [attr.data-label]="i18n.pick({ en: 'Registration', ar: 'التسجيل' })">{{ row.registration }}</span>
+      
           <span class="fee-note" [attr.data-label]="i18n.pick({ en: 'Notes', ar: 'ملاحظات' })">{{ i18n.pick(row.note) }}</span>
         </div>
       }
